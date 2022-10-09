@@ -89,7 +89,7 @@ body{
 .hero-category{
     padding-left: 10%;
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: calc(0.5em + 1vw);
     line-height: 1.22;
     position: relative;;
 
@@ -115,7 +115,7 @@ body{
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 500%;
+    font-size: calc(2em + 4vw);;
     line-height: 1.136;
     color:white;
     text-transform: capitalize;
@@ -127,7 +127,7 @@ body{
     position: relative;
     padding-right: 32px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: calc(0.5em + 1vw);;
     line-height:1.222;
     color:white;
 
