@@ -167,6 +167,7 @@ body{
 .article{
     display: flex;
     min-height: 40vw;
+    min-width: auto;
     
 }
 .article-text{
