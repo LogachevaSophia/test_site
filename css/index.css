@@ -76,9 +76,10 @@ body{
 
 /*HERO*/
 .hero{
+    background-color: #a4beed;
     display:block;
     padding-top: 0;
-    max-width: 50%;
+    max-width: 65%;
     min-width:40%;
     padding-left: 15px;
     padding-right: 15px;
@@ -94,13 +95,13 @@ body{
 .hero-category{
     padding-left: 20%;
     font-weight: 800;
-    font-size: calc(0.5em + 1vw);;
+    font-size: calc(0.5em + 1vw);
     line-height: 1.22;
     position: relative;;
 
     letter-spacing: 1rem;
     text-transform: uppercase;
-    color:#FBD784;
+    color:#de9f0e;
 
 }
 .hero-category::before{
@@ -109,7 +110,7 @@ body{
     content:"";
     width:4rem;
     height: 0.1rem;
-    background-color: white;
+    background-color: #de9f0e;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -120,7 +121,7 @@ body{
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 5vw;
+    font-size: calc(3em + 1vw);
     color:white;
     text-transform: capitalize;
 
@@ -172,21 +173,21 @@ body{
 .article-subtitle{
     padding-left: 96px;
     font-weight: 800;
-    font-size: 18px;
+    font-size: calc(0.5em + 1vw);
     line-height: 1.22;
     position: relative;;
 
     letter-spacing: 6px;
     text-transform: uppercase;
-    color:#FBD784;
+    color:#de9f0e;
 
 }
 .article-subtitle::before{
     position:absolute;
     display:block;
     content:"";
-    width:72px;
-    height: 2px;
+    width:4rem;
+    height: 0.1rem;
     background-color: white;
     left: 0;
     top: 50%;
@@ -201,13 +202,13 @@ body{
     font-style: normal;
     line-height: 1.22;
     font-weight: 600;
-    font-size: 62px;
+    font-size: calc(3em + 1vw);;
 }
 .article-text p{
     font-style: normal;
     line-height: 1.78;
     font-weight: 500;
-    font-size: 18px;
+    font-size: calc(0.5em + 1vw);;
     color: white;
 
 }
