@@ -76,7 +76,7 @@ body{
 
 /*HERO*/
 .hero{
-    background-color: #3370e1;
+    background-color: #385489;
     display:block;
     padding-top: 0;
     max-width: 65%;
@@ -121,7 +121,7 @@ body{
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 500;
-    font-size: calc(3em + 1vw);
+    font-size: 6vw;
     min-width: 43%;
     color:white;
     text-transform: capitalize;
