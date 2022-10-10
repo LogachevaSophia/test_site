@@ -1,0 +1,110 @@
+
+
+.wash{
+    width: 200px;
+    height: 200px;
+    background: #000;
+    /*background-image: url(..img/task2/fon.jpg);*/
+    background-image: url(../img/task2/fon.jpg);
+    z-index: 1;
+    margin: auto;
+    position: relative;
+    display: flex;
+    z-index:0;
+    
+    
+}
+
+
+  .car {
+    opacity: 0;
+    transition: all 0.1s ease;
+    width: 200px;
+    height: 200px;
+    top:50px;
+    left: -25px;
+    background-image: url(../img/task2/car3.png);
+    z-index: 2;
+    position: absolute;
+    display: flex;
+  }
+  
+  .wash:hover .car {
+    transform: translate(25px,-25px);
+    transition: 1s ease;
+    opacity: 1;
+  }
+
+ 
+
+
+  .wash:active .car {
+    opacity: 0;
+  }
+
+  .car_new{
+    opacity: 0;
+    transition: all 1s ease;
+    width: 200px;
+    height: 200px;
+    top: 25px;
+    background-image: url(../img/task2/car_new.png);
+    z-index: 2;
+    position: absolute;
+  }
+  .wash:active .car_new {
+    opacity: 1;
+    animation: shake 1s;
+    animation-iteration-count: infinite;
+   
+  }
+  @keyframes shake {
+    0% {transform: scale(1) rotate(10deg);}
+    25% {transform: scale(1.2) rotate(0);}
+    50% {transform: scale(1) rotate(-10deg);}
+    75% {transform: scale(1.2) rotate(0deg);}
+    100% {transform: scale(1) rotate(10deg);  }
+}
+
+
+.name{
+    color:rgb(78, 23, 29);
+    font-size: 25px;
+    position: absolute;
+    z-index: 2;
+    left:25px;
+    font-weight: bold;
+    opacity: 0;
+}
+
+.wash:hover .name {
+    opacity: 1;
+    transition: 1s ease;
+  }
+
+  .wash:active .name {
+    opacity: 0;
+   
+  }
+
+  .name_2{
+    color:rgb(11, 57, 99);
+    font-size: 25px;
+    position: absolute;
+    z-index: 2;
+    left:25px;
+    font-weight: bold;
+    opacity: 0;
+}
+
+
+.wash:active .name_2 {
+    opacity: 1;
+   
+  }
+
+h1{
+    color: rgb(241, 159,35);
+    text-align: center;
+    font-family: 'Courier New';
+}

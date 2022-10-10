@@ -2,6 +2,7 @@
     <head>
         <title>National Gallery</title>
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/menu.css">
        <!-- <link rel="stylesheet" href="css/index.css">
         <div class="header">
             <div class="header_content">
@@ -34,7 +35,23 @@
                         <div class="nav">
                             <ul>
                                 <li><a href="#">Main</a></li>
-                                <li><a href="#">Tasks</a></li>
+                                <!--
+                                <li><a href="#" class="list">Tasks</a>
+                                    <ul>
+                                        <li><a href="#">Task1</a></li>
+                                        <li><a href="#">Task2</a></li>
+                                    </ul>
+                                </li>-->
+                                <li>
+                                <div class="dropdown">
+                                    <button class="dropbtn">Tasks</button>
+                                    <div class="dropdown-content">
+                                      <a href="task1/task-1.html">Task 1</a>
+                                      <a href="task2/task-2.html">Task 2</a>
+                                      <a href="#">Task 3</a>
+                                    </div>
+                                  </div>
+                                </li>
                                 <li><a href="#">About</a></li>
                             </ul>
                         </div>
@@ -80,6 +97,19 @@
                         <div class="read-more">read more</div>
                    </div>
                    
+                </div>
+                <div class="article">
+                    <div class="article-text" data-number="03">
+                        <div class="article-subtitle">
+                           Get-started
+                        </div>
+                        <div class="article-title">RAMEN </div>
+                        <p>Onigiri (お握り or 御握り), also known as omusubi (お結び), nigirimeshi (握り飯), or rice ball, is a Japanese food made from white rice formed into triangular or cylindrical shapes and often wrapped in nori.</p>
+                        <div class="read-more">read more</div>
+                   </div>
+                   <div class="article-img">
+                       <img class ="image" src="img/art4jpg.jpg">
+                   </div>
                 </div>
 
             </div>
