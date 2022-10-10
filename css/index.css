@@ -235,7 +235,7 @@ body{
     font-style: normal;
     line-height: 1.78;
     font-weight: 500;
-    font-size: calc(0.5em + 1vw);
+    font-size: 1.4vw;
     color: white;
     max-width: 50vw;
 
