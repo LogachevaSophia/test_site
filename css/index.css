@@ -166,7 +166,7 @@
     font-weight: 500;
     font-size: 1.5vw;
     color: white;
-    background-color: rgb(40, 64, 218);
+    background-color: rgb(51, 255, 0);
     max-width: 50vw;
     padding-left: 1vw;
 
@@ -174,7 +174,7 @@
 .image{
     margin-top: 1vw;
     border-radius: 20%;
-    height: 50vw;
+    height: 20vw;
 }
 .read-more{
     display: inline-block;
