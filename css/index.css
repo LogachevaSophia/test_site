@@ -135,7 +135,7 @@
     position:absolute;
     display:block;
     content:"";
-    width:4rem;
+    width:2vw;
     height: 0.1rem;
     background-color: #de9f0e;
     left: 0;
@@ -163,15 +163,16 @@
     font-style: normal;
     line-height: 1.78;
     font-weight: 500;
-    font-size: 1.4vw;
+    font-size: 1.3vw;
     color: white;
     max-width: 50vw;
+    padding-left: 1vw;
 
 }
 .image{
     margin-top: 1vw;
     border-radius: 20%;
-    height: 17vw;
+    height: 30vw;
 }
 .read-more{
     display: inline-block;
