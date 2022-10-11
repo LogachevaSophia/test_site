@@ -1,6 +1,9 @@
 *{
     box-sizing: border-box;
 }
+html{
+    scroll-behavior: smooth;
+}
 body{
     min-width: 800px;
 
@@ -34,9 +37,11 @@ body{
     transform: translateY(-5%);
 }
 .hero-category{
-    padding-left: 20%;
+   /* padding-left: 20%;*/
+   padding-left: 70px;
     font-weight: 800;
-    font-size: calc(0.5em + 1vw);
+    /*font-size: calc(0.5em + 1vw);*/
+    font-size: 25px;
     line-height: 1.22;
     position: relative;;
 
@@ -62,7 +67,8 @@ body{
     font-family: 'Playfair Display', serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 4vw;
+    /*font-size: 4vw;*/
+    font-size: 70px;
     min-width: 43%;
     color:white;
     text-transform: capitalize;
@@ -178,7 +184,8 @@ body{
     font-style: normal;
     line-height: 1.78;
     font-weight: 500;
-    font-size: calc(40vw/30);
+    /*font-size: calc(40vw/30);*/
+    font-size: 25px;
     color: white;
    /* background-color: rgb(255, 0, 60);*/
     max-width: 50vw;
