@@ -1,10 +1,10 @@
 
 .nav-wrapper{
-    margin-bottom: 10vw;
+    margin-bottom: 3vw;
 }
 .header{
     padding-top: 20px;
-    padding-bottom: 300px;
+    /*padding-bottom: 300px;*/
 }
 .conteiner{
     width:auto;
