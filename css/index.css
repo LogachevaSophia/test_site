@@ -202,14 +202,24 @@ html{
 body{
     /*min-width: 800px;*/
 
-    background-color: rgb(39, 0, 63);
-    background-image: url("../img/—Pngtree—climber\ and\ purple\ mountain\ background_1208152.jpg");
+   
+   
     margin: 0;
     background-size: 100% auto;
     background-repeat: no-repeat;
+    background-color: rgb(39, 0, 63);
 
 
     /*background-color: rgb(101, 78, 60);*/
+}
+
+.obolochka{
+    background-color: white;
+}
+
+.header{
+    background-image: url("../img/—Pngtree—climber\ and\ purple\ mountain\ background_1208152.jpg");
+    background-color: rgb(39, 0, 63);
 
 }
 
