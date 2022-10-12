@@ -205,8 +205,7 @@ body{
    
    
     margin: 0;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
+    
     background-color: rgb(39, 0, 63);
 
 
@@ -220,6 +219,8 @@ body{
 .header{
     background-image: url("../img/—Pngtree—climber\ and\ purple\ mountain\ background_1208152.jpg");
     background-color: rgb(39, 0, 63);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
 
 }
 
