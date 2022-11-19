@@ -30,12 +30,93 @@ function renderLevel() {
       let createPart = document.createElement("div");
       createPart.className = "partColba";
       if (i != 0 && i != 1) {
-        let numb = Math.floor(Math.random() * (arrColor.length - 1) + 1);
+        if (j == 0) {
+          if (i == 2) {
+            createPart.style.backgroundColor = arrColor[1];
+            colba.pushColor(1);
+          }
+          if (i == 3) {
+            createPart.style.backgroundColor = arrColor[1];
+            colba.pushColor(1);
+          }
+          if (i == 4) {
+            createPart.style.backgroundColor = arrColor[1];
+            colba.pushColor(1);
+          }
+        }
+        if (j == 1) {
+          if (i == 2) {
+            createPart.style.backgroundColor = arrColor[2];
+            colba.pushColor(2);
+          }
+          if (i == 3) {
+            createPart.style.backgroundColor = arrColor[2];
+            colba.pushColor(2);
+          }
+          if (i == 4) {
+            createPart.style.backgroundColor = arrColor[2];
+            colba.pushColor(2);
+          }
+        }
+        if (j == 2) {
+          if (i == 2) {
+            createPart.style.backgroundColor = arrColor[3];
+            colba.pushColor(3);
+          }
+          if (i == 3) {
+            createPart.style.backgroundColor = arrColor[3];
+            colba.pushColor(3);
+          }
+          if (i == 4) {
+            createPart.style.backgroundColor = arrColor[3];
+            colba.pushColor(3);
+          }
+        }
+        if (j == 3) {
+          if (i == 2) {
+            createPart.style.backgroundColor = arrColor[4];
+            colba.pushColor(4);
+          }
+          if (i == 3) {
+            createPart.style.backgroundColor = arrColor[4];
+            colba.pushColor(4);
+          }
+          if (i == 4) {
+            createPart.style.backgroundColor = arrColor[4];
+            colba.pushColor(4);
+          }
+        }
+        if (j == 4) {
+          if (i == 2) {
+            createPart.style.backgroundColor = arrColor[5];
+            colba.pushColor(5);
+          }
+          if (i == 3) {
+            createPart.style.backgroundColor = arrColor[5];
+            colba.pushColor(5);
+          }
+          if (i == 4) {
+            createPart.style.backgroundColor = arrColor[5];
+            colba.pushColor(5);
+          }
+        }
+
+        /* let numb = Math.floor(Math.random() * (arrColor.length - 1) + 1);
         createPart.style.backgroundColor = arrColor[numb];
-        colba.pushColor(numb);
+        colba.pushColor(numb);*/
       } else {
-        createPart.style.backgroundColor = arrColor[0];
-        colba.pushColor(0);
+        if (j == 1 && i == 1) {
+          createPart.style.backgroundColor = arrColor[1];
+          colba.pushColor(1);
+        } else {
+          if (j == 3 && i == 1) {
+            createPart.style.backgroundColor = arrColor[1];
+            colba.pushColor(1);
+          } else {
+            createPart.style.backgroundColor = arrColor[0];
+            colba.pushColor(0);
+          }
+        }
       }
 
       create.appendChild(createPart);
@@ -52,7 +133,7 @@ function renderLevel() {
         if (this.getAttribute("numb") == arrUse[0]) {
           let winner = document.getElementsByClassName("winner")[0];
           winner.textContent = "дурак";
-          
+
           document.getElementById(arrUse[0]).style.marginTop = "3%";
           arrUse.splice(0, 1);
         } else {
@@ -105,7 +186,6 @@ function renderLevel() {
           //забыла опустить колбу
           document.getElementById(arrUse[0]).style.marginTop = "3%";
 
-          
           arrColbas[arrUse[0]] = useColbaObjOne;
           arrColbas[this.getAttribute("numb")] = useColbaObjTwo;
           arrUse.splice(0, 1);
@@ -114,7 +194,6 @@ function renderLevel() {
           if (chekAllProb()) {
             let winner = document.getElementsByClassName("winner")[0];
             winner.textContent = "Вы заполнили все колбы! УРА!";
-
           }
         }
       }
@@ -133,6 +212,10 @@ function renderStart() {
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
   for (var i = 0; i < arrColbas.length; i++) {
+    console.log("*********");
+    console.log(i);
+    console.log(arrColbas[i].getColors());
+    console.log(checkColba(arrColbas[i]));
     if (!checkColba(arrColbas[i])) {
       return false;
     }
@@ -143,13 +226,17 @@ function chekAllProb() {
 //true, если все одного цвета или полностю пустая, false? если 2 и больше цвета
 function checkColba(colba) {
   let arrColor = colba.getColors();
-  let f = arrColor[0];
-  for (var i = 1; i < arrColor.length; i++) {
-    if (arrColor[i] != f) {
-      return false;
+  let f = [];
+  let count = 0;
+  for (var i = 0; i < arrColor.length; i++) {
+    if (!(f.includes(arrColor[i]))) {
+      count++;
+      f.push(arrColor[i]);
     }
   }
-  return true;
+  console.log("f = ", f);
+  console.log("count = ",count);
+  return count <= 2;
 }
 
 function checkNull(colba) {
