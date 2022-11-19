@@ -9,9 +9,7 @@
 }
 
 
-.nav-wrapper{
-    /*margin-bottom: 10vw;*/
-}
+
 .header{
     padding-top: 20px;
     padding-bottom: 10vw;
@@ -108,13 +106,13 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {}
+
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {}
+
 
 /*
 .header{
