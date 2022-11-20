@@ -1,5 +1,11 @@
 const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
+//import data from './index.json';
 
+
+/* "level1": {
+        "countColb": 5,
+        "countPart": 4,
+        "arrColb": [[0,0,1,1,1],[0,0,2,2,2],[0,0,3,3,3],[0,0,4,4,4],[0,0,5,5,5]]}*/
 class Colba {
   constructor() {
     this.colors = [];
@@ -11,6 +17,7 @@ class Colba {
     this.colors.push(newColor);
   }
 }
+//console.log(data);
 
 let arrColbas = [];
 
@@ -139,68 +146,74 @@ function renderLevel() {
         } else {
           let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
           let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-
-          let useColbaObjOneColor = useColbaObjOne.getColors(); //цвета первой колбы
-          let useColbaObjTwoColor = useColbaObjTwo.getColors(); //цвета второй колбы
-
-          //ищу первый цвет не белый (не пустой) в первой колбе
-          var indColorOne = 0;
-          while (
-            indColorOne < useColbaObjOneColor.length &&
-            useColbaObjOneColor[indColorOne] == 0
-          ) {
-            indColorOne++;
-          }
-          //ищу первый цвет не белый (не пустой) в первой колбе
-          var indColorTwo = 0;
-          while (
-            indColorTwo < useColbaObjTwoColor.length &&
-            useColbaObjTwoColor[indColorTwo] == 0
-          ) {
-            indColorTwo++;
-          }
-
-          //есть ли места во второй колбе?
-          if (indColorTwo != 0) {
-            //если цвета совпадают, то у второй меняю цвет на полученный, у первый делаю белым
-            if (
-              useColbaObjOneColor[indColorOne] ==
-                useColbaObjTwoColor[indColorTwo] ||
-              checkNull(useColbaObjTwo)
-            ) {
-              useColbaObjTwo.colors[indColorTwo - 1] =
-                useColbaObjOneColor[indColorOne];
-
-              document.getElementsByClassName("partColba")[
-                this.getAttribute("numb") * 5 + indColorTwo - 1
-              ].style.backgroundColor =
-                arrColor[useColbaObjOneColor[indColorOne]];
-
-              document.getElementsByClassName("partColba")[
-                arrUse[0] * 5 + indColorOne
-              ].style.backgroundColor = arrColor[0];
-              useColbaObjOne.colors[indColorOne] = 0;
-            }
-          }
-
-          //забыла опустить колбу
-          document.getElementById(arrUse[0]).style.marginTop = "3%";
-
-          arrColbas[arrUse[0]] = useColbaObjOne;
-          arrColbas[this.getAttribute("numb")] = useColbaObjTwo;
-          arrUse.splice(0, 1);
-
-          //проверка на выигрыш
-          if (chekAllProb()) {
-            let winner = document.getElementsByClassName("winner")[0];
-            winner.textContent = "Вы заполнили все колбы! УРА!";
-          }
+          move(useColbaObjOne, useColbaObjTwo, this);
         }
       }
     });
 
     conteiner.appendChild(create);
   }
+}
+
+function move(useColbaObjOne, useColbaObjTwo, useObj) {
+  let useColbaObjOneColor = useColbaObjOne.getColors(); //цвета первой колбы
+  let useColbaObjTwoColor = useColbaObjTwo.getColors(); //цвета второй колбы
+  let inColorOne = findColor(useColbaObjOneColor); //индекс первого не белого цвета у первой колбы
+  let inColorTwo = findColor(useColbaObjTwoColor); // индекс первого не белого цвета у второй колбы
+
+  let color = useColbaObjOneColor[inColorOne]; //запомним цвет, который переливали
+  //есть ли места во второй колбе?
+  if (inColorTwo != 0) {
+    //совпадают ли цвета
+    if (
+      useColbaObjOneColor[inColorOne] == useColbaObjTwoColor[inColorTwo] ||
+      checkNull(useColbaObjTwo)
+    ) {
+      useColbaObjTwo.colors[inColorTwo - 1] = useColbaObjOneColor[inColorOne];
+
+      document.getElementsByClassName("partColba")[
+        useObj.getAttribute("numb") * 5 + inColorTwo - 1
+      ].style.backgroundColor = arrColor[useColbaObjOneColor[inColorOne]];
+
+      document.getElementsByClassName("partColba")[
+        arrUse[0] * 5 + inColorOne
+      ].style.backgroundColor = arrColor[0];
+      useColbaObjOne.colors[inColorOne] = 0;
+    }
+  }
+
+  //а вдруг там несколько блоков, которые надо перелить?
+  inColorOne = findColor(useColbaObjOneColor);
+  while ((!checkNull(useColbaObjOne)) && (useColbaObjOne.colors[inColorOne] == color)) {
+      //у нас есть еще один блок, который надо перелить}
+      move(useColbaObjOne, useColbaObjTwo, useObj);
+      inColorOne = findColor(useColbaObjOneColor);
+  }
+
+  //забыла опустить колбу
+  document.getElementById(arrUse[0]).style.marginTop = "3%";
+
+  arrColbas[arrUse[0]] = useColbaObjOne;
+  arrColbas[useObj.getAttribute("numb")] = useColbaObjTwo;
+  arrUse.splice(0, 1);
+
+  //проверка на выигрыш
+  if (chekAllProb()) {
+    let winner = document.getElementsByClassName("winner")[0];
+    winner.textContent = "Вы заполнили все колбы! УРА!";
+  }
+}
+
+function findColor(useColbaObjOneColor) {
+  //ищу первый цвет не белый (не пустой) в первой колбе
+  var indColor = 0;
+  while (
+    indColor < useColbaObjOneColor.length &&
+    useColbaObjOneColor[indColor] == 0
+  ) {
+    indColor++;
+  }
+  return indColor;
 }
 
 function renderStart() {
@@ -212,10 +225,6 @@ function renderStart() {
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
   for (var i = 0; i < arrColbas.length; i++) {
-    console.log("*********");
-    console.log(i);
-    console.log(arrColbas[i].getColors());
-    console.log(checkColba(arrColbas[i]));
     if (!checkColba(arrColbas[i])) {
       return false;
     }
@@ -229,14 +238,12 @@ function checkColba(colba) {
   let f = [];
   let count = 0;
   for (var i = 0; i < arrColor.length; i++) {
-    if (!(f.includes(arrColor[i]))) {
+    if (arrColor[i] != 0 && !f.includes(arrColor[i])) {
       count++;
       f.push(arrColor[i]);
     }
   }
-  console.log("f = ", f);
-  console.log("count = ",count);
-  return count <= 2;
+  return count <= 1;
 }
 
 function checkNull(colba) {
