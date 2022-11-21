@@ -15,14 +15,35 @@ body{
     height: 400px;
     margin: auto;
     display: flex;
+    flex-flow: column;
 }
 .field{
     background-color: coral;
     width: 80%;
     height: 300px;
     margin: auto;
-    display: flex;
+    padding-left: 1rem;
     margin-top: 2%;
+    display: none;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.field_start{
+    background-color: coral;
+    width: 80%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    
+}
+.start{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-flow: column wrap;
 }
 
 .colba{
@@ -30,7 +51,7 @@ body{
     width: 20px;
     /*background-color: black;*/
     border: 3mm ridge rgba(211, 220, 50, .6);
-    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 3%;
     transition: 0.5s;
 }
@@ -44,4 +65,9 @@ body{
 .winner{
     color:red;
     text-align: center;
+    min-height: 20px;
+}
+.username{
+    text-align: center;
+    min-height: 20px;
 }

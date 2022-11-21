@@ -6,6 +6,18 @@ const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
         "countColb": 5,
         "countPart": 4,
         "arrColb": [[0,0,1,1,1],[0,0,2,2,2],[0,0,3,3,3],[0,0,4,4,4],[0,0,5,5,5]]}*/
+
+
+
+const data = {
+  "level1": {
+    "countColb": 5,
+    "countPart": 5,
+    "arrColb": [[0,0,0,0,1],[0,1,2,2,2],[0,0,3,3,3],[0,1,4,4,4],[0,0,5,5,5]]}
+}
+
+
+
 class Colba {
   constructor() {
     this.colors = [];
@@ -24,9 +36,62 @@ let arrColbas = [];
 let arrUse = [];
 
 function renderLevel() {
+  /*localStorage.setItem('username',document.getElementById('name').value);*/
+  document.getElementsByClassName('username')[0].textContent = document.getElementById('name').value;
+
+  //удаляем стартовое окно
+  document.getElementsByClassName("field_start")[0].style.display = 'none';
+
+  document.getElementsByClassName("field")[0].style.display = 'flex';
+
   let conteiner = document.getElementsByClassName("field")[0];
 
-  for (let j = 0; j < 5; j++) {
+  for (let j = 0; j < data.level1.countColb; j++) {
+    let create = document.createElement("div");
+    create.className = "colba";
+    create.setAttribute("numb", j);
+    create.id = j;
+    let colba = new Colba();
+    arrColbas.push(colba);
+    for (i = 0; i < data.level1.countPart; i++) {
+      
+      let createPart = document.createElement("div");
+      createPart.className = "partColba";
+      
+      createPart.style.backgroundColor = arrColor[data.level1.arrColb[j][i]];
+      colba.pushColor(data.level1.arrColb[j][i]);
+      
+
+      create.appendChild(createPart);
+    }
+    colba.getColors();
+    create.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      if (arrUse.length == 0) {
+        arrUse.push(this.getAttribute("numb"));
+        this.style.marginTop = 0;
+      } else {
+        //пользователь дурак и решил в саму себя же перелить
+        if (this.getAttribute("numb") == arrUse[0]) {
+          let winner = document.getElementsByClassName("winner")[0];
+          winner.textContent = "дурак";
+
+          document.getElementById(arrUse[0]).style.marginTop = "3%";
+          arrUse.splice(0, 1);
+        } else {
+          let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
+          let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
+          move(useColbaObjOne, useColbaObjTwo, this);
+        }
+      }
+    });
+
+    conteiner.appendChild(create);
+  }
+
+
+  /*for (let j = 0; j < 5; j++) {
     let create = document.createElement("div");
     create.className = "colba";
     create.setAttribute("numb", j);
@@ -108,9 +173,6 @@ function renderLevel() {
           }
         }
 
-        /* let numb = Math.floor(Math.random() * (arrColor.length - 1) + 1);
-        createPart.style.backgroundColor = arrColor[numb];
-        colba.pushColor(numb);*/
       } else {
         if (j == 1 && i == 1) {
           createPart.style.backgroundColor = arrColor[1];
@@ -152,6 +214,10 @@ function renderLevel() {
     });
 
     conteiner.appendChild(create);
+  }*/
+
+  for (let j=0; j<data.level1.countColb;j++){
+
   }
 }
 
