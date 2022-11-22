@@ -1,12 +1,12 @@
 *{
     box-sizing: border-box;
+    margin: 0;
 }
 body{
     min-width: 800px;
 
     background-color: rgb(39, 0, 63);
     background-image: url("../img/—Pngtree—climber\ and\ purple\ mountain\ background_1208152.jpg");
-    margin: 0;
     background-size: 100% auto;
     background-repeat: no-repeat;
 
