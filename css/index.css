@@ -1,7 +1,7 @@
 *{
     box-sizing: border-box;
 }
-/*Средние*/
+/*
 @media all and (max-width: 820px) {
     .row{
         align-items: center;
@@ -23,14 +23,8 @@
     }
     
 }
-/*Маленькие экраны*/
 @media all and (max-width: 2559px) {
-    /*.article-text p{
-        font-size: 16px !important;
-    }
-    .image{
-        width: 100px;
-    }*/
+ 
     .read-more{
         font-size: 30px !important;}
     .hero-title{
@@ -66,12 +60,7 @@
 
 
   @media all and (max-width: 1441px) {
-    /*.article-text p{
-        font-size: 16px !important;
-    }
-    .image{
-        width: 100px;
-    }*/
+
     .read-more{
         font-size: 40px !important;}
     .hero-title{
@@ -274,7 +263,7 @@
     .article-text{
         margin-top: 0 !important;}
   }
-
+*/
 
 html{
     scroll-behavior: smooth;
@@ -292,9 +281,7 @@ body{
     /*background-color: rgb(101, 78, 60);*/
 }
 
-.obolochka{
-    background-color: white;
-}
+
 
 .header{
     background-image: url("../img/—Pngtree—climber\ and\ purple\ mountain\ background_1208152.jpg");

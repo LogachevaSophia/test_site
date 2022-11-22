@@ -125,10 +125,6 @@ function renderLevel(level) {
           let winner = document.getElementsByClassName("winner")[0];
           winner.textContent = "дурак";
 
-
-
-
-
           document.getElementById(arrUse[0]).style.marginTop = "3%";
           arrUse.splice(0, 1);
         } else {
@@ -143,130 +139,7 @@ function renderLevel(level) {
   }
   updateColb();
 
-  /*for (let j = 0; j < 5; j++) {
-    let create = document.createElement("div");
-    create.className = "colba";
-    create.setAttribute("numb", j);
-    create.id = j;
-    let colba = new Colba();
-    arrColbas.push(colba);
-    for (i = 0; i < 5; i++) {
-      let createPart = document.createElement("div");
-      createPart.className = "partColba";
-      if (i != 0 && i != 1) {
-        if (j == 0) {
-          if (i == 2) {
-            createPart.style.backgroundColor = arrColor[1];
-            colba.pushColor(1);
-          }
-          if (i == 3) {
-            createPart.style.backgroundColor = arrColor[1];
-            colba.pushColor(1);
-          }
-          if (i == 4) {
-            createPart.style.backgroundColor = arrColor[1];
-            colba.pushColor(1);
-          }
-        }
-        if (j == 1) {
-          if (i == 2) {
-            createPart.style.backgroundColor = arrColor[2];
-            colba.pushColor(2);
-          }
-          if (i == 3) {
-            createPart.style.backgroundColor = arrColor[2];
-            colba.pushColor(2);
-          }
-          if (i == 4) {
-            createPart.style.backgroundColor = arrColor[2];
-            colba.pushColor(2);
-          }
-        }
-        if (j == 2) {
-          if (i == 2) {
-            createPart.style.backgroundColor = arrColor[3];
-            colba.pushColor(3);
-          }
-          if (i == 3) {
-            createPart.style.backgroundColor = arrColor[3];
-            colba.pushColor(3);
-          }
-          if (i == 4) {
-            createPart.style.backgroundColor = arrColor[3];
-            colba.pushColor(3);
-          }
-        }
-        if (j == 3) {
-          if (i == 2) {
-            createPart.style.backgroundColor = arrColor[4];
-            colba.pushColor(4);
-          }
-          if (i == 3) {
-            createPart.style.backgroundColor = arrColor[4];
-            colba.pushColor(4);
-          }
-          if (i == 4) {
-            createPart.style.backgroundColor = arrColor[4];
-            colba.pushColor(4);
-          }
-        }
-        if (j == 4) {
-          if (i == 2) {
-            createPart.style.backgroundColor = arrColor[5];
-            colba.pushColor(5);
-          }
-          if (i == 3) {
-            createPart.style.backgroundColor = arrColor[5];
-            colba.pushColor(5);
-          }
-          if (i == 4) {
-            createPart.style.backgroundColor = arrColor[5];
-            colba.pushColor(5);
-          }
-        }
-
-      } else {
-        if (j == 1 && i == 1) {
-          createPart.style.backgroundColor = arrColor[1];
-          colba.pushColor(1);
-        } else {
-          if (j == 3 && i == 1) {
-            createPart.style.backgroundColor = arrColor[1];
-            colba.pushColor(1);
-          } else {
-            createPart.style.backgroundColor = arrColor[0];
-            colba.pushColor(0);
-          }
-        }
-      }
-
-      create.appendChild(createPart);
-    }
-    colba.getColors();
-    create.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      if (arrUse.length == 0) {
-        arrUse.push(this.getAttribute("numb"));
-        this.style.marginTop = 0;
-      } else {
-        //пользователь дурак и решил в саму себя же перелить
-        if (this.getAttribute("numb") == arrUse[0]) {
-          let winner = document.getElementsByClassName("winner")[0];
-          winner.textContent = "дурак";
-
-          document.getElementById(arrUse[0]).style.marginTop = "3%";
-          arrUse.splice(0, 1);
-        } else {
-          let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
-          let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-          move(useColbaObjOne, useColbaObjTwo, this);
-        }
-      }
-    });
-
-    conteiner.appendChild(create);
-  }*/
+ 
 }
 
 function updateColb() {

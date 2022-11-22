@@ -1,10 +1,12 @@
 .conteiner_con{
     width:  100px;
-    height: 100px;
-    top:-30px;
+    /*height: 100px;*/
+    /*top:-30px;*/
     position: relative;
     display: block;
     z-index: 55555;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .egg {
     border: solid 1px black;
