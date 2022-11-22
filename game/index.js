@@ -1,22 +1,43 @@
 const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
-//import data from './index.json';
+//localStorage.setItem('level',null);
+/*const data = {
+  level1: {
+    countColb: 5,
+    countPart: 5,
+    arrColb: [
+      [0, 0, 0, 0, 1],
+      [0, 1, 2, 2, 2],
+      [0, 0, 3, 3, 3],
+      [0, 1, 4, 4, 4],
+      [0, 0, 5, 5, 5],
+    ],
+  },
+};*/
 
-
-/* "level1": {
-        "countColb": 5,
-        "countPart": 4,
-        "arrColb": [[0,0,1,1,1],[0,0,2,2,2],[0,0,3,3,3],[0,0,4,4,4],[0,0,5,5,5]]}*/
-
-
-
-const data = {
-  "level1": {
-    "countColb": 5,
-    "countPart": 5,
-    "arrColb": [[0,0,0,0,1],[0,1,2,2,2],[0,0,3,3,3],[0,1,4,4,4],[0,0,5,5,5]]}
-}
-
-
+const data = [
+  {
+    countColb: 5,
+    countPart: 5,
+    arrColb: [
+      [0, 0, 0, 0, 1],
+      [0, 1, 2, 2, 2],
+      [0, 0, 3, 3, 3],
+      [0, 1, 4, 4, 4],
+      [0, 0, 5, 5, 5],
+    ],
+  },
+  {
+    countColb: 5,
+    countPart: 5,
+    arrColb: [
+      [0, 0, 0, 1, 1],
+      [0, 0, 2, 2, 2],
+      [0, 0, 3, 3, 3],
+      [0, 0, 4, 4, 4],
+      [0, 1, 5, 5, 5],
+    ],
+  },
+];
 
 class Colba {
   constructor() {
@@ -35,36 +56,50 @@ let arrColbas = [];
 
 let arrUse = [];
 
-function renderLevel() {
+function start() {
+  if (localStorage.getItem("level") == "null") {
+    localStorage.setItem("level", 0);
+  }
+  renderStart();
+  renderLevel(localStorage.getItem("level"));
+}
+
+function renderLevel(level) {
   /*localStorage.setItem('username',document.getElementById('name').value);*/
-  document.getElementsByClassName('username')[0].textContent = document.getElementById('name').value;
+  let winner = document.getElementsByClassName("winner")[0];
+  winner.textContent = "";
+
+  document.getElementsByClassName("username")[0].textContent =
+    document.getElementById("name").value;
 
   //удаляем стартовое окно
-  document.getElementsByClassName("field_start")[0].style.display = 'none';
+  document.getElementsByClassName("field_start")[0].style.display = "none";
+  document.getElementsByClassName("field_continue")[0].style.display = "none";
 
-  document.getElementsByClassName("field")[0].style.display = 'flex';
+  document.getElementsByClassName("field")[0].style.display = "flex";
 
   let conteiner = document.getElementsByClassName("field")[0];
 
-  for (let j = 0; j < data.level1.countColb; j++) {
+  for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
     create.setAttribute("numb", j);
     create.id = j;
     let colba = new Colba();
     arrColbas.push(colba);
-    for (i = 0; i < data.level1.countPart; i++) {
-      
+    for (i = 0; i < data[level].countPart; i++) {
       let createPart = document.createElement("div");
       createPart.className = "partColba";
-      
-      createPart.style.backgroundColor = arrColor[data.level1.arrColb[j][i]];
-      colba.pushColor(data.level1.arrColb[j][i]);
-      
+
+      //createPart.style.backgroundColor = arrColor[data.level1.arrColb[j][i]];
+
+      //createPart.style.backgroundColor = arrColor[data[level].arrColb[j][i]];
+      colba.pushColor(data[level].arrColb[j][i]);
 
       create.appendChild(createPart);
     }
-    colba.getColors();
+    //console.log("Колба № ", j);
+    //console.log(colba.getColors());
     create.addEventListener("click", function (e) {
       e.preventDefault();
 
@@ -89,7 +124,7 @@ function renderLevel() {
 
     conteiner.appendChild(create);
   }
-
+  updateColb();
 
   /*for (let j = 0; j < 5; j++) {
     let create = document.createElement("div");
@@ -215,10 +250,24 @@ function renderLevel() {
 
     conteiner.appendChild(create);
   }*/
+}
 
-  for (let j=0; j<data.level1.countColb;j++){
+function updateColb() {
+  console.log("****************We are in update***************");
+  console.log(arrColbas);
 
+  for (let i = 0; i < arrColbas.length; i++) {
+    //console.log(arrColbas[i]);
+    for (let j = 0; j < arrColbas[i].colors.length; j++) {
+      /* console.log(document.getElementsByClassName('partColba')[i*5+j]);*/
+
+      //console.log(i*5+j);
+      document.getElementsByClassName("partColba")[
+        i * 5 + j
+      ].style.backgroundColor = arrColor[arrColbas[i].colors[j]];
+    }
   }
+  console.log("Вышли из update");
 }
 
 function move(useColbaObjOne, useColbaObjTwo, useObj) {
@@ -236,8 +285,9 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       checkNull(useColbaObjTwo)
     ) {
       useColbaObjTwo.colors[inColorTwo - 1] = useColbaObjOneColor[inColorOne];
+      useColbaObjOne.colors[inColorOne] = 0;
 
-      document.getElementsByClassName("partColba")[
+      /*document.getElementsByClassName("partColba")[
         useObj.getAttribute("numb") * 5 + inColorTwo - 1
       ].style.backgroundColor = arrColor[useColbaObjOneColor[inColorOne]];
 
@@ -245,18 +295,43 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
         arrUse[0] * 5 + inColorOne
       ].style.backgroundColor = arrColor[0];
       useColbaObjOne.colors[inColorOne] = 0;
+      //console.log("первая колба",useColbaObjOne)1*/
     }
   }
 
   //а вдруг там несколько блоков, которые надо перелить?
-  inColorOne = findColor(useColbaObjOneColor);
-  while ((!checkNull(useColbaObjOne)) && (useColbaObjOne.colors[inColorOne] == color)) {
-      //у нас есть еще один блок, который надо перелить}
-      move(useColbaObjOne, useColbaObjTwo, useObj);
-      inColorOne = findColor(useColbaObjOneColor);
+  //console.log("а вдруг там несколько блоков, которые надо перелить?");
+  //console.log(useColbaObjOne);
+  inColorOne = findColor(useColbaObjOne.colors);
+  inColorTwo = findColor(useColbaObjTwo.colors);
+  //console.log("inColorOne = ", inColorOne);
+  //console.log("color = ", color);
+  console.log("первая колба", useColbaObjOne);
+  console.log("вторая колба", useColbaObjTwo);
+  //пока цвет совпадает - переливаем
+  while (useColbaObjOne.colors[inColorOne] == color && inColorTwo != 0) {
+    useColbaObjOne,
+      (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, useObj));
+    inColorOne = findColor(useColbaObjOne.colors);
+
+    //надо перекрасить, а я опять забыла
   }
+  updateColb();
+
+  /* inColorOne = findColor(useColbaObjOneColor);
+  console.log("первая колба пустая?",checkNull(useColbaObjOne));
+  console.log("Еще один блок для перелива?",useColbaObjOne.colors[inColorOne] == color);
+  while (
+    !checkNull(useColbaObjOne) &&
+    useColbaObjOne.colors[inColorOne] == color
+  ) {
+    //у нас есть еще один блок, который надо перелить}
+    useColbaObjOne,useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, useObj);
+    inColorOne = findColor(useColbaObjOneColor);
+  }*/
 
   //забыла опустить колбу
+  console.log(arrUse[0]);
   document.getElementById(arrUse[0]).style.marginTop = "3%";
 
   arrColbas[arrUse[0]] = useColbaObjOne;
@@ -267,25 +342,42 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   if (chekAllProb()) {
     let winner = document.getElementsByClassName("winner")[0];
     winner.textContent = "Вы заполнили все колбы! УРА!";
+    localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
+    if (localStorage.getItem("level") == String(data.length)) {
+      localStorage.setItem("level", 0);
+    }
+
+    setTimeout(function () {
+      document.getElementsByClassName("field")[0].style.display = "none";
+      document.getElementsByClassName("field_continue")[0].style.display =
+        "flex";
+    }, 2000);
   }
+  return useColbaObjOne, useColbaObjTwo;
 }
 
 function findColor(useColbaObjOneColor) {
   //ищу первый цвет не белый (не пустой) в первой колбе
   var indColor = 0;
+
   while (
     indColor < useColbaObjOneColor.length &&
     useColbaObjOneColor[indColor] == 0
   ) {
     indColor++;
   }
+
   return indColor;
 }
 
 function renderStart() {
-  let conteiner = document.getElementsByClassName("conteiner")[0];
-  let child = document.getElementsByClassName("field")[0];
-  conteiner.removeChild(child);
+  let conteiner = document.getElementsByClassName("field")[0];
+  while (document.getElementsByClassName("colba").length != 0) {
+    conteiner.removeChild(document.getElementsByClassName("colba")[0]);
+  }
+  while (arrColbas.length != 0) {
+    arrColbas.splice(0, 1);
+  }
 }
 
 //проверка всех колб на то, одного цвета или нет
@@ -299,8 +391,10 @@ function chekAllProb() {
 }
 
 //true, если все одного цвета или полностю пустая, false? если 2 и больше цвета
+//количество цветов помимо белого должно было не более 1
 function checkColba(colba) {
   let arrColor = colba.getColors();
+  //console.log("цвета:", arrColor);
   let f = [];
   let count = 0;
   for (var i = 0; i < arrColor.length; i++) {
@@ -309,6 +403,7 @@ function checkColba(colba) {
       f.push(arrColor[i]);
     }
   }
+  //console.log("Количество цветов помимо белого",count);
   return count <= 1;
 }
 
