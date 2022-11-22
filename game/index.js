@@ -112,6 +112,10 @@ function renderLevel(level) {
           let winner = document.getElementsByClassName("winner")[0];
           winner.textContent = "дурак";
 
+
+
+
+          
           document.getElementById(arrUse[0]).style.marginTop = "3%";
           arrUse.splice(0, 1);
         } else {
