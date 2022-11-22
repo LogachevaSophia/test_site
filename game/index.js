@@ -57,7 +57,7 @@ let arrColbas = [];
 let arrUse = [];
 
 function start() {
-  if (localStorage.getItem("level") == "null") {
+  if (localStorage.getItem("level") == null) {
     localStorage.setItem("level", 0);
   }
   renderStart();
@@ -115,7 +115,7 @@ function renderLevel(level) {
 
 
 
-          
+
           document.getElementById(arrUse[0]).style.marginTop = "3%";
           arrUse.splice(0, 1);
         } else {
