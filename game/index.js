@@ -35,7 +35,6 @@ const data = [
       [0, 0, 3, 3, 3],
       [0, 0, 4, 4, 4],
       [0, 1, 2, 3, 5],
-
     ],
   },
   {
@@ -47,10 +46,60 @@ const data = [
       [0, 5, 3, 2, 3],
       [0, 3, 4, 4, 4],
       [0, 1, 2, 5, 5],
-
     ],
   },
 ];
+renderStepLevel();
+
+function renderStepLevel() {
+  let level = localStorage.getItem("level");
+  let arr = [];
+  let countColb = 5;
+  let countPart = 5;
+  let arrPart = [];
+  let arrUse = [];
+  //заполняем нулями
+  for (let i = 0; i < countColb; i++) {
+    for (let j = 0; j < countPart; j++) {
+      if (j < countPart - 3) {
+        arrPart.push(0);
+      } else {
+        arrPart.push(i + 1);
+      }
+    }
+    arrUse.push(i);
+    arr.push(arrPart);
+    arrPart = [];
+  }
+  console.log("arrUse = ", arrUse);
+
+  for (let i = 0; i < 5*level; i++) {
+    let one = Math.floor(Math.random() * arrUse.length);
+    let two = Math.floor(Math.random() * arrUse.length);
+
+    while (one == two || arr[two][0] != 0 || arr[one][countPart - 1] == 0) {
+      two = Math.floor(Math.random() * countColb);
+      one = Math.floor(Math.random() * countColb);
+    }
+    /* console.log("первая = ",one);
+    console.log(arr[one]);
+    console.log("вторя = ", two);
+    console.log(arr[two]);*/
+
+    let indOne = findColor(arr[one]); //первый не белый цвет в первой колбе
+    let indTwo = findColor(arr[two]); //первый не белый цвет в второй колбе
+    arr[two][indTwo - 1] = arr[one][indOne];
+    arr[one][indOne] = 0;
+    /*console.log(arr[one]);
+    console.log(arr[two]);*/
+  }
+  console.log(arr);
+  return {
+    countColb: countColb,
+    countPart: countPart,
+    arrColb: arr,
+  };
+}
 
 class Colba {
   constructor() {
@@ -73,6 +122,36 @@ function start() {
   if (localStorage.getItem("level") == null) {
     localStorage.setItem("level", 0);
   }
+  data.push(renderStepLevel());
+  document.getElementById("timer").textContent = 30;
+
+  time = parseFloat(document.getElementById("timer").textContent);
+  var interval = setInterval(function () {
+    if (time <= 0) {
+      clearInterval(interval);
+      setTimeout(function () {
+        let winner = document.getElementsByClassName("winner")[0];
+        winner.textContent = "Неудача...";
+        document.getElementsByClassName("field")[0].style.display = "none";
+        document.getElementsByClassName("field_continue")[0].style.display =
+          "flex";
+        document.getElementsByClassName("field_continue")[0].style.opacity =
+          "1";
+      }, 1000);
+      //заканчиваем игру
+    } else {
+      if (chekAllProb()) {
+        clearInterval(interval);
+      } else {
+        time -= 0.1;
+        if (time <= 0) {
+          time = 0;
+        }
+        document.getElementById("timer").textContent = time.toFixed(1);
+      }
+    }
+  }, 100);
+
   renderStart();
   renderLevel(localStorage.getItem("level"));
 }
@@ -138,14 +217,9 @@ function renderLevel(level) {
     conteiner.appendChild(create);
   }
   updateColb();
-
- 
 }
 
 function updateColb() {
-  console.log("****************We are in update***************");
-  console.log(arrColbas);
-
   for (let i = 0; i < arrColbas.length; i++) {
     //console.log(arrColbas[i]);
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
@@ -157,7 +231,6 @@ function updateColb() {
       ].style.backgroundColor = arrColor[arrColbas[i].colors[j]];
     }
   }
-  console.log("Вышли из update");
 }
 
 function move(useColbaObjOne, useColbaObjTwo, useObj) {
@@ -176,16 +249,6 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
     ) {
       useColbaObjTwo.colors[inColorTwo - 1] = useColbaObjOneColor[inColorOne];
       useColbaObjOne.colors[inColorOne] = 0;
-
-      /*document.getElementsByClassName("partColba")[
-        useObj.getAttribute("numb") * 5 + inColorTwo - 1
-      ].style.backgroundColor = arrColor[useColbaObjOneColor[inColorOne]];
-
-      document.getElementsByClassName("partColba")[
-        arrUse[0] * 5 + inColorOne
-      ].style.backgroundColor = arrColor[0];
-      useColbaObjOne.colors[inColorOne] = 0;
-      //console.log("первая колба",useColbaObjOne)1*/
     }
   }
 
@@ -196,8 +259,6 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   inColorTwo = findColor(useColbaObjTwo.colors);
   //console.log("inColorOne = ", inColorOne);
   //console.log("color = ", color);
-  console.log("первая колба", useColbaObjOne);
-  console.log("вторая колба", useColbaObjTwo);
   //пока цвет совпадает - переливаем
   while (useColbaObjOne.colors[inColorOne] == color && inColorTwo != 0) {
     useColbaObjOne,
@@ -208,20 +269,7 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   }
   updateColb();
 
-  /* inColorOne = findColor(useColbaObjOneColor);
-  console.log("первая колба пустая?",checkNull(useColbaObjOne));
-  console.log("Еще один блок для перелива?",useColbaObjOne.colors[inColorOne] == color);
-  while (
-    !checkNull(useColbaObjOne) &&
-    useColbaObjOne.colors[inColorOne] == color
-  ) {
-    //у нас есть еще один блок, который надо перелить}
-    useColbaObjOne,useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, useObj);
-    inColorOne = findColor(useColbaObjOneColor);
-  }*/
-
   //забыла опустить колбу
-  console.log(arrUse[0]);
   document.getElementById(arrUse[0]).style.marginTop = "3%";
 
   arrColbas[arrUse[0]] = useColbaObjOne;
@@ -230,6 +278,7 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
 
   //проверка на выигрыш
   if (chekAllProb()) {
+    console.log("Ты выиграл");
     let winner = document.getElementsByClassName("winner")[0];
     winner.textContent = "Вы заполнили все колбы! УРА!";
     localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
@@ -237,11 +286,14 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       localStorage.setItem("level", 0);
     }
 
+    document.getElementById("timer").textContent = "";
+
     setTimeout(function () {
       document.getElementsByClassName("field")[0].style.display = "none";
       document.getElementsByClassName("field_continue")[0].style.display =
         "flex";
-    }, 2000);
+      document.getElementsByClassName("field_continue")[0].style.opacity = "1";
+    }, 1000);
   }
   return useColbaObjOne, useColbaObjTwo;
 }
