@@ -1,5 +1,4 @@
 const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
-//localStorage.setItem('level',null);
 /*const data = {
   level1: {
     countColb: 5,
@@ -13,9 +12,9 @@ const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
     ],
   },
 };*/
-
-const data = [
-  {
+console.log(localStorage.getItem('level'));
+let data = []
+  /*{
     countColb: 5,
     countPart: 5,
     arrColb: [
@@ -45,11 +44,11 @@ const data = [
       [0, 1, 2, 2, 2],
       [0, 5, 3, 2, 3],
       [0, 3, 4, 4, 4],
-      [0, 1, 2, 5, 5],
+      [0, 0, 0, 0, 0],
     ],
   },
-];
-renderStepLevel();
+];*/
+//renderStepLevel();
 
 function renderStepLevel() {
   let level = localStorage.getItem("level");
@@ -59,7 +58,7 @@ function renderStepLevel() {
   let arrPart = [];
   let arrUse = [];
   //заполняем нулями
-  for (let i = 0; i < countColb; i++) {
+  for (let i = 0; i < countColb-1; i++) {
     for (let j = 0; j < countPart; j++) {
       if (j < countPart - 3) {
         arrPart.push(0);
@@ -67,13 +66,17 @@ function renderStepLevel() {
         arrPart.push(i + 1);
       }
     }
-    arrUse.push(i);
     arr.push(arrPart);
     arrPart = [];
   }
-  console.log("arrUse = ", arrUse);
+  arrPart = [0]
+    for (let j = 0; j < countPart-1; j++) {
+      arrPart.push(0);
+    }
+    arr.push(arrPart);
+  console.log("arr = ", arr);
 
-  for (let i = 0; i < 5*level; i++) {
+  for (let i = 0; i < 5*level+1; i++) {
     let one = Math.floor(Math.random() * arrUse.length);
     let two = Math.floor(Math.random() * arrUse.length);
 
@@ -93,12 +96,15 @@ function renderStepLevel() {
     /*console.log(arr[one]);
     console.log(arr[two]);*/
   }
-  console.log(arr);
-  return {
+  let ret = {
+    countColb: countColb,
     countColb: countColb,
     countPart: countPart,
-    arrColb: arr,
-  };
+    arrColb: arr
+  }
+  console.log("HEELLLOO");
+  console.log("ret = ", ret)
+  return ret
 }
 
 class Colba {
@@ -123,6 +129,10 @@ function start() {
     localStorage.setItem("level", 0);
   }
   data.push(renderStepLevel());
+  console.log("!!!!!!!!!!!!!!!!!!!!!");
+  console.log(data);
+  
+  console.log(data[localStorage.getItem("level")])
   document.getElementById("timer").textContent = 30;
 
   time = parseFloat(document.getElementById("timer").textContent);
@@ -171,7 +181,8 @@ function renderLevel(level) {
   document.getElementsByClassName("field")[0].style.display = "flex";
 
   let conteiner = document.getElementsByClassName("field")[0];
-
+  console.log("level = ", level);
+  console.log(data[level]);
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
@@ -324,11 +335,28 @@ function renderStart() {
 
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
-  for (var i = 0; i < arrColbas.length; i++) {
-    if (!checkColba(arrColbas[i])) {
-      return false;
+  //для победы у меня должна быть одна пустая и остальные по одному цвету
+
+  //првоерим, есть ли вообще хотя бы одна пустая
+  let fl = false;
+  for (var i =0;i<arrColbas.length;i++){
+    if (checkNull(arrColbas[i])) fl = true;
+  }
+
+
+  //если fl=true, тогда проверяем, чтобы в каждой колбе было по 1 цвету включая белый
+  if (fl){
+    for (var i = 0; i < arrColbas.length; i++) {
+      if ((!checkNull(arrColbas[i]))&&(!checkColba(arrColbas[i]))) {
+        return false;
+      }
     }
   }
+  else{
+    return false
+  }
+  
+  
   return true;
 }
 
@@ -340,13 +368,13 @@ function checkColba(colba) {
   let f = [];
   let count = 0;
   for (var i = 0; i < arrColor.length; i++) {
-    if (arrColor[i] != 0 && !f.includes(arrColor[i])) {
+    if (!f.includes(arrColor[i])) {
       count++;
       f.push(arrColor[i]);
     }
   }
   //console.log("Количество цветов помимо белого",count);
-  return count <= 1;
+  return count <= 2;
 }
 
 function checkNull(colba) {
