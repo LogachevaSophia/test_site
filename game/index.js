@@ -12,6 +12,7 @@ const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
     ],
   },
 };*/
+localStorage.setItem('level',0);
 console.log(localStorage.getItem('level'));
 let data = []
   /*{
