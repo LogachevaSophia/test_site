@@ -6,101 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js"></script>
     <link rel="stylesheet" href="../css/game.css" />
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="../logo.css">
+    <link rel="stylesheet" href="../css/menu.css" />
+    <link rel="stylesheet" href="../logo.css" />
     <!--<script type="text/javascript" src="index.json"></script>--->
     <title>Document</title>
   </head>
   <body>
-    <div class="obolochka">
-        <div class="nav-wrapper">
-            <div class="conteiner">
-                <div class="row space">
-                   <!-- <div class="logo">!-->
-                        <div class="conteiner_con">
-                            <div class="egg first">
-                                <div class="yellow"></div>
-                                <div class="eye first">
-                                    <div class="eye_in first"></div>
-                                </div>
-                                <div class="eye second">
-                                    <div class="eye_in second"></div>
-                                </div>
-                                <div class="rot">
-                                    <div class="rot_in"></div>
-                                </div>
-                            </div>
-                            <div class="egg second">
-                                <div class="yellow"></div>
-                                <div class="eye first">
-                                    <div class="eye_in first"></div>
-                                </div>
-                                <div class="eye second">
-                                    <div class="eye_in second"></div>
-                                    <div class="rot second">
-                                        <div class="rot_in second"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <!--</div>!-->
-                    <div class="nav">
-                        <ul>
-                            <li><a href="../index.html">Main</a></li>
-                            <li>
-                            <div class="dropdown">
-                                <button class="dropbtn">Tasks</button>
-                                <div class="dropdown-content">
-                                <a href="../task1/task-1.html">Task 1</a>
-                                <a href="../task2/task-2.html">Task 2</a>
-                                <a href="../task3/task-3.html">Task 3</a>
-                                <a href="#">Task 3</a>
-                                </div>
-                            </div>
-                            </li>
-                            <li><a href="#">About</a></li>
-                        </ul>
-                    </div>
-                    <div class="login">LOGIN</div>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <!--<button onclick="renderLevel()">рендер уровня</button>-->
     <!--<button onclick="renderStart()">рендер начальной страницы</button>-->
-    
-    
-    <div class="back">
+    <div class="back_conteiner">
+      <div class="back">
         <div class="conteiner_body">
           <div id="timer"></div>
-            <div class="field_start">
-              <div class="start">
-                <label>Введите имя</label>
-                <input id="name" /><br />
-                <button class="button" onclick="start()">
-                  <span>Начать игру</span>
-                </button>
-              </div>
+          <div class="field_start">
+            <div class="start">
+              <label>Введите имя</label>
+              <input id="name" /><br />
+              <button class="button" onclick="start()">
+                <span>Начать игру</span>
+              </button>
             </div>
-      
-            <div class="username"></div>
-            <div class="field_continue">
-              <div class="start">
-                <div class="winner"></div>
-                <button class="button" onclick="start()">
-                  <span>Дальше</span>
-                </button>
-              </div>
-            </div>
-            <div class="field"></div>
           </div>
+          <div class="auth" \>
+            <div class="username"></div>
+           
+          </div>
+
+          <div class="status-bar"></div>
+
+          <div class="field_continue">
+            <div class="start">
+              <div class="winner"></div>
+              <button class="button" onclick="start()">
+                <span>Дальше</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="field"></div>
+        </div>
+      </div>
     </div>
+
     <div class="main">
-
+      <div id="results"></div>
     </div>
-
-
-    
   </body>
 </html>

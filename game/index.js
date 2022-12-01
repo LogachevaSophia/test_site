@@ -11,11 +11,26 @@ const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
       [0, 0, 5, 5, 5],
     ],
   },
-};*/
-localStorage.setItem('level',0);
-console.log(localStorage.getItem('level'));
-let data = []
-  /*{
+};*/ localStorage.setItem("results", null);
+localStorage.setItem("level", 0);
+/*console.log(localStorage.getItem("level"));
+console.log("0000000000000000000000000000000000000000");
+console.log(localStorage.getItem("results"));
+if (localStorage.getItem("results")) {
+  console.log(document.getElementById('results'));
+  document.getElementById('results').textContent =
+    localStorage.getItem("results");
+}
+else{
+  console.log(document.getElementById('results'));
+  document.getElementById('results').textContent =
+    localStorage.getItem("results");
+}
+
+console.log("0000000000000000000000000000000000000000");*/
+var name_user = "";
+let data = [];
+/*{
     countColb: 5,
     countPart: 5,
     arrColb: [
@@ -59,7 +74,7 @@ function renderStepLevel() {
   let arrPart = [];
   let arrUse = [];
   //заполняем нулями
-  for (let i = 0; i < countColb-1; i++) {
+  for (let i = 0; i < countColb - 1; i++) {
     for (let j = 0; j < countPart; j++) {
       if (j < countPart - 3) {
         arrPart.push(0);
@@ -70,14 +85,14 @@ function renderStepLevel() {
     arr.push(arrPart);
     arrPart = [];
   }
-  arrPart = [0]
-    for (let j = 0; j < countPart-1; j++) {
-      arrPart.push(0);
-    }
-    arr.push(arrPart);
+  arrPart = [0];
+  for (let j = 0; j < countPart - 1; j++) {
+    arrPart.push(0);
+  }
+  arr.push(arrPart);
   console.log("arr = ", arr);
 
-  for (let i = 0; i < 5*level+1; i++) {
+  for (let i = 0; i < 5 * level + 1; i++) {
     let one = Math.floor(Math.random() * arrUse.length);
     let two = Math.floor(Math.random() * arrUse.length);
 
@@ -101,11 +116,23 @@ function renderStepLevel() {
     countColb: countColb,
     countColb: countColb,
     countPart: countPart,
-    arrColb: arr
-  }
+    arrColb: arr,
+  };
   console.log("HEELLLOO");
-  console.log("ret = ", ret)
-  return ret
+  console.log("ret = ", ret);
+  return ret;
+}
+
+function getResultFile() {
+  let reader = new FileReader();
+  reader.readAsText("./results.dat");
+
+  reader.onload = function () {
+    console.log(reader.result);
+  };
+  reader.onerror = function () {
+    console.log(reader.error);
+  };
 }
 
 class Colba {
@@ -125,50 +152,71 @@ let arrColbas = [];
 
 let arrUse = [];
 
+function logout(){
+  localStorage.removeItem('username');
+  document.getElementsByClassName('username').textContent = "";
+}
+
 function start() {
-  if (localStorage.getItem("level") == null) {
-    localStorage.setItem("level", 0);
-  }
-  data.push(renderStepLevel());
-  console.log("!!!!!!!!!!!!!!!!!!!!!");
-  console.log(data);
-  
-  console.log(data[localStorage.getItem("level")])
-  document.getElementById("timer").textContent = 30;
+  console.log(
+    (document.getElementsByClassName("status-bar")[0].style.display = "block")
+  );
 
-  time = parseFloat(document.getElementById("timer").textContent);
-  var interval = setInterval(function () {
-    if (time <= 0) {
-      clearInterval(interval);
-      setTimeout(function () {
-        let winner = document.getElementsByClassName("winner")[0];
-        winner.textContent = "Неудача...";
-        document.getElementsByClassName("field")[0].style.display = "none";
-        document.getElementsByClassName("field_continue")[0].style.display =
-          "flex";
-        document.getElementsByClassName("field_continue")[0].style.opacity =
-          "1";
-      }, 1000);
-      //заканчиваем игру
-    } else {
-      if (chekAllProb()) {
-        clearInterval(interval);
-      } else {
-        time -= 0.1;
-        if (time <= 0) {
-          time = 0;
-        }
-        document.getElementById("timer").textContent = time.toFixed(1);
-      }
+  if (document.getElementById("name").value == "") {
+  } else {
+    name_user = document.getElementById("name").value;
+    if (localStorage.getItem("level") == null) {
+      localStorage.setItem("level", 0);
     }
-  }, 100);
+    data.push(renderStepLevel());
+    console.log("!!!!!!!!!!!!!!!!!!!!!");
+    console.log(data);
 
-  renderStart();
-  renderLevel(localStorage.getItem("level"));
+    console.log(data[localStorage.getItem("level")]);
+    document.getElementById("timer").textContent = 30;
+
+    time = parseFloat(document.getElementById("timer").textContent);
+    var interval = setInterval(function () {
+      if (time <= 0) {
+        clearInterval(interval);
+        setTimeout(function () {
+          document.getElementsByClassName("status-bar")[0].style.width = 0+'%';
+          let winner = document.getElementsByClassName("winner")[0];
+          winner.textContent = "Неудача...";
+          document.getElementsByClassName("field")[0].style.display = "none";
+          document.getElementsByClassName("field_continue")[0].style.display =
+            "flex";
+          document.getElementsByClassName("field_continue")[0].style.opacity =
+            "1";
+        }, 1000);
+        //заканчиваем игру
+      } else {
+        if (chekAllProb()) {
+          document.getElementsByClassName("status-bar")[0].style.width = 0+'%';
+          let update_res  = localStorage.getItem('results');
+          console.log(update_res);
+          clearInterval(interval);
+        } else {
+          time -= 0.1;
+
+          if (time <= 0) {
+            time = 0;
+          }
+          document.getElementsByClassName("status-bar")[0].style.width =
+            (time * 8) / 3 + "%";
+          document.getElementById("timer").textContent = time.toFixed(1);
+        }
+      }
+    }, 100);
+
+    renderStart();
+    renderLevel(localStorage.getItem("level"));
+  }
 }
 
 function renderLevel(level) {
   /*localStorage.setItem('username',document.getElementById('name').value);*/
+  document.getElementsByClassName('auth')[0].style.display='table';
   let winner = document.getElementsByClassName("winner")[0];
   winner.textContent = "";
 
@@ -294,6 +342,51 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
     let winner = document.getElementsByClassName("winner")[0];
     winner.textContent = "Вы заполнили все колбы! УРА!";
     localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
+    var res = localStorage.getItem("results");
+    console.log("res = ", res);
+
+    /*if (res == "null") {
+      res = [];
+      var res_new = {
+        name: name_user,
+        score: localStorage.getItem("level") * 5,
+      };
+      res.push(JSON.stringify(res_new));
+      console.log(res);
+      localStorage.setItem('results', res);
+    } else {
+      //ищем нужного пользователя по имени
+      var find = false;
+      for (var i = 0; i < res.length; i++) {
+        if (res[i].name == name_user) {
+          find = true;
+          break;
+        }
+      }
+      if (find) {
+        //если пользователь найден
+        res[i].score = localStorage.getItem("level") * 5;
+        localStorage.setItem("results", res);
+      }
+      else{
+        var dop = {name: name_user, score: localStorage.getItem("level") * 5};
+        res.push(dop);
+        localStorage.setItem("results", res);
+      }
+    }
+    
+    res = JSON.parse(localStorage.getItem('results'));
+
+    //заполняем результаты
+    var str = ""
+    for (var i=0;i<res.length;i++){
+      str+=res[i].name;
+      str+=": ";
+      str+=String(res[i].score);
+      str+="\n";
+    }
+    document.getElementById('results').textContent = str;*/
+
     if (localStorage.getItem("level") == String(data.length)) {
       localStorage.setItem("level", 0);
     }
@@ -340,24 +433,21 @@ function chekAllProb() {
 
   //првоерим, есть ли вообще хотя бы одна пустая
   let fl = false;
-  for (var i =0;i<arrColbas.length;i++){
+  for (var i = 0; i < arrColbas.length; i++) {
     if (checkNull(arrColbas[i])) fl = true;
   }
 
-
   //если fl=true, тогда проверяем, чтобы в каждой колбе было по 1 цвету включая белый
-  if (fl){
+  if (fl) {
     for (var i = 0; i < arrColbas.length; i++) {
-      if ((!checkNull(arrColbas[i]))&&(!checkColba(arrColbas[i]))) {
+      if (!checkNull(arrColbas[i]) && !checkColba(arrColbas[i])) {
         return false;
       }
     }
+  } else {
+    return false;
   }
-  else{
-    return false
-  }
-  
-  
+
   return true;
 }
 
