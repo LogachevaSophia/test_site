@@ -18,9 +18,50 @@ body {
   text-align: center;
   background-color: red;
   margin: auto;
-  display: none;
   transition: 0.5s;
 }
+.zvezda{
+  display: flex;
+  flex-flow: row;
+}
+.d14 {
+  margin: 50px 0; 
+  height: 0; 
+  width: 0;
+  position: relative;
+  border-right: 50px solid transparent;
+  border-bottom: 35px solid #e4e818;
+  border-left: 50px solid transparent;
+  transform: rotate(35deg);
+  opacity: 0;
+  transition: 2s;
+  }
+  .d14:before, 
+  .d14:after {
+  content: "";
+  height: 0; 
+  width: 0;
+  position: absolute;
+  transition: 2s;
+  }
+  .d14:before {
+  top: -26px; 
+  left: -32px;
+  border-bottom: 40px solid #f2f602;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  transform: rotate(-35deg);
+  transition: 2s;
+  }
+  .d14:after {
+  top: 2px; 
+  left: -53px;
+  border-right: 50px solid transparent;
+  border-bottom: 35px solid #f2f602;;
+  border-left: 50px solid transparent;
+  transform: rotate(-70deg);
+  transition: 2s;
+  }
 
 .header {
   width: 100%;
@@ -168,15 +209,21 @@ body {
 .username {
   display: table-cell; 
   vertical-align: middle;
-  
+  font-size: 18px;
   min-height: 20px;
   color:white;
   text-transform: uppercase;
   padding-top: 5%;
 
 }
-.auth.button{
-  font-size: 10px;
+.score{
+  display: table-cell; 
+  vertical-align: middle;
+  font-size: 20px;
+  min-height: 20px;
+  color:white;
+  text-transform: uppercase;
+  padding-top: 5%;
 }
 .main {
   background-color: rgb(39, 0, 63);

@@ -1,35 +1,39 @@
 const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
-/*const data = {
-  level1: {
-    countColb: 5,
-    countPart: 5,
-    arrColb: [
-      [0, 0, 0, 0, 1],
-      [0, 1, 2, 2, 2],
-      [0, 0, 3, 3, 3],
-      [0, 1, 4, 4, 4],
-      [0, 0, 5, 5, 5],
-    ],
-  },
-};*/ localStorage.setItem("results", null);
-localStorage.setItem("level", 0);
-/*console.log(localStorage.getItem("level"));
-console.log("0000000000000000000000000000000000000000");
-console.log(localStorage.getItem("results"));
-if (localStorage.getItem("results")) {
-  console.log(document.getElementById('results'));
-  document.getElementById('results').textContent =
-    localStorage.getItem("results");
+console.log(localStorage.getItem("level"));
+if (String(localStorage.getItem("level")) == "null") {
+  localStorage.setItem("level", 0);
 }
-else{
-  console.log(document.getElementById('results'));
-  document.getElementById('results').textContent =
-    localStorage.getItem("results");
-}
-
-console.log("0000000000000000000000000000000000000000");*/
+localStorage.removeItem("results");
+localStorage.removeItem("level");
 var name_user = "";
 let data = [];
+function updateres(prop) {
+
+
+  let arr = JSON.parse(localStorage.getItem("results"));
+  console.log("arr = ", arr);
+  if (String(arr) == "null") {
+    //у нас нет ничего в резах
+    let dop = JSON.stringify([prop]);
+    localStorage.setItem("results", dop);
+  } else {
+    let fl = false;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]["name"] == prop["name"]) {
+        fl = true;
+        //такой челочек уже когда-то играл
+        arr[i] = prop;
+        localStorage.setItem("results", JSON.stringify(arr));
+        break;
+      }
+      if (!fl) {
+        //человечек первый раз играет
+        arr.push(prop);
+        localStorage.setItem("results", JSON.stringify(arr));
+      }
+    }
+  }
+}
 /*{
     countColb: 5,
     countPart: 5,
@@ -152,27 +156,33 @@ let arrColbas = [];
 
 let arrUse = [];
 
-function logout(){
-  localStorage.removeItem('username');
-  document.getElementsByClassName('username').textContent = "";
+function logout() {
+  localStorage.removeItem("username");
+  document.getElementsByClassName("username").textContent = "";
+}
+
+function calculate_score(time, all = 30) {
+  let part = all / 3;
+  if (time <= part) {
+    return 5;
+  } else {
+    if (time <= 2 * part) {
+      return 10;
+    } else {
+      return 15;
+    }
+  }
 }
 
 function start() {
-  console.log(
-    (document.getElementsByClassName("status-bar")[0].style.display = "block")
-  );
-
+  console.log("data = ", data);
   if (document.getElementById("name").value == "") {
   } else {
     name_user = document.getElementById("name").value;
     if (localStorage.getItem("level") == null) {
       localStorage.setItem("level", 0);
     }
-    data.push(renderStepLevel());
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
-    console.log(data);
-
-    console.log(data[localStorage.getItem("level")]);
+    data[localStorage.getItem("level")] = renderStepLevel();
     document.getElementById("timer").textContent = 30;
 
     time = parseFloat(document.getElementById("timer").textContent);
@@ -180,7 +190,8 @@ function start() {
       if (time <= 0) {
         clearInterval(interval);
         setTimeout(function () {
-          document.getElementsByClassName("status-bar")[0].style.width = 0+'%';
+          document.getElementsByClassName("status-bar")[0].style.width =
+            0 + "%";
           let winner = document.getElementsByClassName("winner")[0];
           winner.textContent = "Неудача...";
           document.getElementsByClassName("field")[0].style.display = "none";
@@ -188,13 +199,58 @@ function start() {
             "flex";
           document.getElementsByClassName("field_continue")[0].style.opacity =
             "1";
-        }, 1000);
+        }, 500);
         //заканчиваем игру
       } else {
         if (chekAllProb()) {
-          document.getElementsByClassName("status-bar")[0].style.width = 0+'%';
-          let update_res  = localStorage.getItem('results');
-          console.log(update_res);
+          document.getElementsByClassName("status-bar")[0].style.width =
+            0 + "%";
+          document.getElementsByClassName("score")[0].textContent =
+            Number(document.getElementsByClassName("score")[0].textContent) +
+            calculate_score(time);
+            /*let ball = calculate_score(time);
+            if (ball==5){
+              setTimeout(function () {
+                document.querySelector('[number="1"]').style.opacity = '1';
+              }, 2500);
+              setTimeout(function () {
+                document.querySelector('[number="2"]').style.opacity = '0';
+              }, 0);
+              setTimeout(function () {
+                document.querySelector('[number="3"]').style.opacity = '0';
+              }, 0);
+              
+            }
+            else{
+              if (ball == 10){
+                setTimeout(function () {
+                  document.querySelector('[number="1"]').style.opacity = '1';
+                }, 1500);
+                setTimeout(function () {
+                  document.querySelector('[number="2"]').style.opacity = '1';
+                }, 2000);
+                setTimeout(function () {
+                  document.querySelector('[number="3"]').style.opacity = '0';
+                }, 0);
+              }
+              else{
+                setTimeout(function () {
+                  document.querySelector('[number="1"]').style.opacity = '1';
+                }, 1500);
+                setTimeout(function () {
+                  document.querySelector('[number="2"]').style.opacity = '1';
+                }, 2000);
+                setTimeout(function () {
+                  document.querySelector('[number="3"]').style.opacity = '1';
+                }, 2500);
+              }
+            }
+
+            updateres({
+              name: document.getElementsByClassName("username")[0].textContent,
+              score: document.getElementsByClassName("score")[0].textContent,
+            });*/
+          console.log("ищу интервад");
           clearInterval(interval);
         } else {
           time -= 0.1;
@@ -216,7 +272,7 @@ function start() {
 
 function renderLevel(level) {
   /*localStorage.setItem('username',document.getElementById('name').value);*/
-  document.getElementsByClassName('auth')[0].style.display='table';
+  document.getElementsByClassName("auth")[0].style.display = "table";
   let winner = document.getElementsByClassName("winner")[0];
   winner.textContent = "";
 
@@ -342,63 +398,55 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
     let winner = document.getElementsByClassName("winner")[0];
     winner.textContent = "Вы заполнили все колбы! УРА!";
     localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
-    var res = localStorage.getItem("results");
-    console.log("res = ", res);
-
-    /*if (res == "null") {
-      res = [];
-      var res_new = {
-        name: name_user,
-        score: localStorage.getItem("level") * 5,
-      };
-      res.push(JSON.stringify(res_new));
-      console.log(res);
-      localStorage.setItem('results', res);
-    } else {
-      //ищем нужного пользователя по имени
-      var find = false;
-      for (var i = 0; i < res.length; i++) {
-        if (res[i].name == name_user) {
-          find = true;
-          break;
-        }
-      }
-      if (find) {
-        //если пользователь найден
-        res[i].score = localStorage.getItem("level") * 5;
-        localStorage.setItem("results", res);
-      }
-      else{
-        var dop = {name: name_user, score: localStorage.getItem("level") * 5};
-        res.push(dop);
-        localStorage.setItem("results", res);
-      }
-    }
+    //document.getElementsByClassName('score')[0].textContent = Number(document.getElementsByClassName('score')[0].textContent)+calculate_score(Number(document.getElementById('timer').textContent))
     
-    res = JSON.parse(localStorage.getItem('results'));
-
-    //заполняем результаты
-    var str = ""
-    for (var i=0;i<res.length;i++){
-      str+=res[i].name;
-      str+=": ";
-      str+=String(res[i].score);
-      str+="\n";
-    }
-    document.getElementById('results').textContent = str;*/
-
-    if (localStorage.getItem("level") == String(data.length)) {
-      localStorage.setItem("level", 0);
-    }
-
-    document.getElementById("timer").textContent = "";
+    
 
     setTimeout(function () {
       document.getElementsByClassName("field")[0].style.display = "none";
       document.getElementsByClassName("field_continue")[0].style.display =
         "flex";
       document.getElementsByClassName("field_continue")[0].style.opacity = "1";
-    }, 1000);
+    }, 500);
+    let ball = calculate_score( parseFloat(document.getElementById("timer").textContent));
+    if (ball==5){
+      setTimeout(function () {
+        document.querySelector('[number="1"]').style.opacity = 'block';
+      }, 1500);
+      setTimeout(function () {
+        document.querySelector('[number="2"]').style.opacity = '0';
+      }, 0);
+      setTimeout(function () {
+        document.querySelector('[number="3"]').style.opacity = '0';
+      }, 0);
+      
+    }
+    else{
+      if (ball == 10){
+        setTimeout(function () {
+          document.querySelector('[number="1"]').style.opacity = '1';
+        },3500);
+        setTimeout(function () {
+          document.querySelector('[number="2"]').style.opacity = '1';
+        }, 2000);
+        setTimeout(function () {
+          document.querySelector('[number="3"]').style.opacity = '0';
+        }, 0);
+      }
+      else{
+        setTimeout(function () {
+          document.querySelector('[number="1"]').style.opacity = '1';
+        }, 1500);
+        setTimeout(function () {
+          document.querySelector('[number="2"]').style.opacity = '1';
+        }, 2000);
+        setTimeout(function () {
+          document.querySelector('[number="3"]').style.opacity = '1';
+        }, 2500);
+      }
+    }
+    document.getElementById("timer").textContent = "";
+
   }
   return useColbaObjOne, useColbaObjTwo;
 }
@@ -430,11 +478,13 @@ function renderStart() {
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
   //для победы у меня должна быть одна пустая и остальные по одному цвету
-
+  console.log("******************");
+  console.log(arrColbas);
+  console.log("******************");
   //првоерим, есть ли вообще хотя бы одна пустая
   let fl = false;
   for (var i = 0; i < arrColbas.length; i++) {
-    if (checkNull(arrColbas[i])) fl = true;
+    if (checkNull(arrColbas[i])) {fl = true; break}
   }
 
   //если fl=true, тогда проверяем, чтобы в каждой колбе было по 1 цвету включая белый
@@ -459,13 +509,13 @@ function checkColba(colba) {
   let f = [];
   let count = 0;
   for (var i = 0; i < arrColor.length; i++) {
-    if (!f.includes(arrColor[i])) {
+    if ((!f.includes(arrColor[i]))&&(arrColor[i]!=0)) {
       count++;
       f.push(arrColor[i]);
     }
   }
   //console.log("Количество цветов помимо белого",count);
-  return count <= 2;
+  return count <= 1;
 }
 
 function checkNull(colba) {
