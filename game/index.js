@@ -208,48 +208,7 @@ function start() {
           document.getElementsByClassName("score")[0].textContent =
             Number(document.getElementsByClassName("score")[0].textContent) +
             calculate_score(time);
-            /*let ball = calculate_score(time);
-            if (ball==5){
-              setTimeout(function () {
-                document.querySelector('[number="1"]').style.opacity = '1';
-              }, 2500);
-              setTimeout(function () {
-                document.querySelector('[number="2"]').style.opacity = '0';
-              }, 0);
-              setTimeout(function () {
-                document.querySelector('[number="3"]').style.opacity = '0';
-              }, 0);
-              
-            }
-            else{
-              if (ball == 10){
-                setTimeout(function () {
-                  document.querySelector('[number="1"]').style.opacity = '1';
-                }, 1500);
-                setTimeout(function () {
-                  document.querySelector('[number="2"]').style.opacity = '1';
-                }, 2000);
-                setTimeout(function () {
-                  document.querySelector('[number="3"]').style.opacity = '0';
-                }, 0);
-              }
-              else{
-                setTimeout(function () {
-                  document.querySelector('[number="1"]').style.opacity = '1';
-                }, 1500);
-                setTimeout(function () {
-                  document.querySelector('[number="2"]').style.opacity = '1';
-                }, 2000);
-                setTimeout(function () {
-                  document.querySelector('[number="3"]').style.opacity = '1';
-                }, 2500);
-              }
-            }
-
-            updateres({
-              name: document.getElementsByClassName("username")[0].textContent,
-              score: document.getElementsByClassName("score")[0].textContent,
-            });*/
+          
           console.log("ищу интервад");
           clearInterval(interval);
         } else {

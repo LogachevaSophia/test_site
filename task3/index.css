@@ -1,7 +1,11 @@
 .conteiner{
 
     background-color: rgb(214, 214, 121);
+    border: 1mm ridge rgba(0, 0, 0, 0.6);
 
+}
+body{
+    background-color: rgb(214, 214, 121);
 }
 
 

@@ -1,0 +1,139 @@
+body {
+  background-color: brown;
+  margin: 0;
+}
+
+.windowStart,
+.windowGamePreview,
+.windowGame,
+.windowFlask,
+.windowPiramid {
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 33px;
+}
+button {
+  display: inline-block;
+  color: rgb(149, 0, 255);
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: 0.5em 2em;
+  outline: none;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: rgb(119, 234, 62);
+}
+.windowStart {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(199, 163, 163);
+
+  display: flex;
+  animation: unshow 1s;
+  justify-content: center;
+}
+.errName {
+  display: none;
+  color: rgb(255, 0, 0);
+}
+
+.startcontent {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.windowGamePreview {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(194, 28, 209);
+
+  display: none;
+  animation: show 1s;
+  flex-direction: row;
+}
+
+
+.windowGame {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(194, 28, 209);
+
+  display: none;
+  animation: show 1s;
+}
+.windowFlask {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(255, 0, 0);
+
+  display: none;
+  animation: show 1s;
+}
+.windowPiramid {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(255, 0, 0);
+
+  display: none;
+  animation: show 1s;
+}
+
+.flask {
+  width: 40%;
+  border-radius: 33px;
+  background-color: black;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: white;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.flask:hover, .piramid:hover{
+    background-color: rgb(111, 109, 109);
+}
+
+.piramid {
+  width: 40%;
+  border-radius: 33px;
+  background-color: black;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: white;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes unshow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./flask.css" />
+    <!--<script type="text/javascript" src="index.json"></script>--->
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="windowStart">
+      <div class="startcontent">
+        <label>Введите имя</label>
+        <input id="name" />
+        <label class="errName">Не верное имя</label>
+        <button class="button" onclick="start()">
+          <span>Начать игру</span>
+        </button>
+      </div>
+    </div>
+    <div class="windowGamePreview">
+      <div class="flask">
+        <div class="flaskContent">
+          <blockquote>В каждую колбу надо собрать по одному цвету</blockquote>
+          <button onclick="flask()">Начать</button>
+          <p>
+            <label class="ResultsFlask"> Ваш результат: </label>
+          </p>
+        </div>
+      </div>
+      <div class="piramid">
+        <div class="flaskContent">
+          <blockquote>В каждую колбу надо собрать разные цвета</blockquote>
+          <button onclick="piramid()">Начать</button>
+          <p>
+            <label class="ResultsPiramid"> Ваш результат: </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="windowGame"></div>
+    <div class="windowFlask">
+      <div class="setting">
+        <button onClick="toMain()">в меню</button>
+        <div class="auth">
+          <div class="username">usernmae</div>
+          <div class="score">score</div>
+          <div class="level">level</div>
+        </div>
+        <p>
+        <div id="timer">timer</div><p>
+        <div class="status-bar">status</div>
+        <div class="field"></div>
+      </div>
+    </div>
+    <div class="windowPiramid">
+      <button onClick="toMain()">в меню</button>
+    </div>
+  </body>
+  <script src="index.js"></script>
+  <script src="flask.js"></script>
+  <script src="piramid.js"></script>
+</html>
