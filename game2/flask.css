@@ -1,3 +1,52 @@
-.setting button,div{
+#timer {
+    font-size: 200%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    min-height: 40px;
+  }
+  .status-bar{
+    height: 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    transition: 0.5s;
+  }
+  
+  .setToMain{
     display: inline-block;
-}
+  }
+  .username{display: inline-block;
+  }
+  .score{
+    display: inline-block;
+  }
+  .level{
+    display: inline-block;
+  }
+
+  .colba {
+    height: 100px;
+    width: 25px;
+    /*background-color: black;*/
+    border: 5px solid rgba(0, 0, 0, 0.6);
+    border-radius: 0 0 20px 20px;
+    margin: 3% auto;
+    transition: 0.5s;
+    overflow: hidden;
+    padding: 0;
+  }
+  .partColba {
+    height: 20px;
+    width: 100%;
+    transition: 0.3s;
+    margin: 0;
+    padding: 0;
+    border: 1px black;
+  }
+  .field{
+    margin-top: 5%;
+    justify-content: center;
+  }
+  .fieldContinue{
+    justify-content: center;
+  }

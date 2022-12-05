@@ -44,17 +44,24 @@
     <div class="windowGame"></div>
     <div class="windowFlask">
       <div class="setting">
-        <button onClick="toMain()">в меню</button>
+        <button onClick="toMain()" class="setToMain">в меню</button>
         <div class="auth">
-          <div class="username">usernmae</div>
-          <div class="score">score</div>
-          <div class="level">level</div>
+          <div class="username"></div>
+          <div class="score">0</div>
+          <div class="level">Level: </div>
         </div>
         <p>
-        <div id="timer">timer</div><p>
-        <div class="status-bar">status</div>
-        <div class="field"></div>
+        <div id="timer"></div><p>
+        <div class="status-bar"> </div>
+        
       </div>
+      <div class="field"></div>
+    </div>
+    <div class="windowFlaskContinue">
+      <button onclick="flask()">Дальше</button>
+    </div>
+    <div class="windowFlaskContinueFailure">
+      <button onclick="flask()">Дальше</button>
     </div>
     <div class="windowPiramid">
       <button onClick="toMain()">в меню</button>

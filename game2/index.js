@@ -22,6 +22,7 @@ function start() {
 
 
 function getResultFlask(name){
+    console.log(localStorage.getItem('results'));
     let res = JSON.parse(localStorage.getItem('results'));
     if (String(res)=='null'){
         return {level: 0, score: 0}
@@ -68,9 +69,4 @@ function getResultPiramid(name){
 
 }
 
-function toMain() {
-  document.getElementsByClassName("windowFlask")[0].style.display = "none";
-  document.getElementsByClassName("windowPiramid")[0].style.display = "none";
-  document.getElementsByClassName("windowGamePreview")[0].style.display =
-    "flex";
-}
+

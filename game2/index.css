@@ -7,7 +7,9 @@ body {
 .windowGamePreview,
 .windowGame,
 .windowFlask,
-.windowPiramid {
+.windowPiramid,
+.windowFlaskContinueFailure,
+.windowFlaskContinue {
   width: 80%;
   height: 80%;
   transform: translate(-50%, -50%);
@@ -64,7 +66,6 @@ button {
   flex-direction: row;
 }
 
-
 .windowGame {
   position: absolute;
 
@@ -107,8 +108,9 @@ button {
   margin-bottom: 2%;
 }
 
-.flask:hover, .piramid:hover{
-    background-color: rgb(111, 109, 109);
+.flask:hover,
+.piramid:hover {
+  background-color: rgb(111, 109, 109);
 }
 
 .piramid {
@@ -120,6 +122,29 @@ button {
   color: white;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+
+.windowFlaskContinueFailure{
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(219, 142, 226);
+  display: block;
+  display: none;
+  animation: show 1s;
+}
+
+
+.windowFlaskContinue{
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(219, 142, 226);
+  display: block;
+  display: none;
+  animation: show 1s;
 }
 @keyframes show {
   from {
