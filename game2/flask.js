@@ -6,17 +6,42 @@ function toMain() {
   document.getElementsByClassName("windowGamePreview")[0].style.display =
     "flex";
 
-  let str = "уровень: " + document.getElementsByClassName("level")[0].textContent + " Очки: " + document.getElementsByClassName("score")[0].textContent;
-  document.getElementsByClassName("ResultsFlask")[0].textContent ="Ваш результат: " + str;
+  let str =
+    "уровень: " +
+    document.getElementsByClassName("level")[0].textContent +
+    " Очки: " +
+    document.getElementsByClassName("score")[0].textContent;
+  document.getElementsByClassName("ResultsFlask")[0].textContent =
+    "Ваш результат: " + str;
   toMainlet = true;
+  try {
+    let conteiner = document.getElementsByClassName("field")[0];
+    while (document.getElementsByClassName("colba").length != 0) {
+      conteiner.removeChild(document.getElementsByClassName("colba")[0]);
+    }
+    while (arrColbas.length != 0) {
+      arrColbas.splice(0, 1);
+    }
+  } catch {
+    try {
+      let conteiner = document.getElementsByClassName("field")[1];
+      while (document.getElementsByClassName("colba").length != 0) {
+        conteiner.removeChild(document.getElementsByClassName("colba")[0]);
+      }
+      while (arrColbas.length != 0) {
+        arrColbas.splice(0, 1);
+      }
+    } catch {}
+  }
 }
 function flask() {
   document.getElementsByClassName("windowGamePreview")[0].style.display =
     "none";
   document.getElementsByClassName("windowFlaskContinue")[0].style.display =
     "none";
-    document.getElementsByClassName("windowFlaskContinueFailure")[0].style.display =
-    "none";
+  document.getElementsByClassName(
+    "windowFlaskContinueFailure"
+  )[0].style.display = "none";
   document.getElementsByClassName("windowFlask")[0].style.display = "block";
   start_flask();
 }
@@ -44,7 +69,7 @@ data[0] = {
 function updateres(prop) {
   console.log(prop);
   /*name, flask|piramid, level, score*/
- console.log(localStorage.getItem("results"));
+  console.log(localStorage.getItem("results"));
   let arr = JSON.parse(localStorage.getItem("results"));
 
   if (String(arr) == "null") {
@@ -297,11 +322,13 @@ function start_flask() {
     if (String(localStorage.getItem("level")) != "0") {
       data[localStorage.getItem("level")] = renderStepLevel();
     }
-
+    clearInterval();
     document.getElementById("timer").textContent = 30;
+    
 
     time = parseFloat(document.getElementById("timer").textContent);
     var interval = setInterval(function () {
+      
       if (time <= 0) {
         clearInterval(interval);
         /*setTimeout(function () {
@@ -319,13 +346,14 @@ function start_flask() {
         )[0].style.display = "block";
         document.getElementsByClassName("windowFlask")[0].style.display =
           "none";
-        document.getElementsByClassName("status-bar")[0].style.width =
-          0 + "%";
+        document.getElementsByClassName("status-bar")[0].style.width = 0 + "%";
         //заканчиваем игру
       } else {
         if (toMainlet) {
-          clearInterval(interval);
+          
           toMainlet = false;
+          document.getElementById("timer").textContent = "";
+          clearInterval(interval);
         }
         if (chekAllProb()) {
           setTimeout(function () {
@@ -493,6 +521,7 @@ function renderLevel(level) {
 }
 
 function updateColb() {
+  console.log(arrColbas);
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
       document.getElementsByClassName("partColba")[
@@ -556,12 +585,13 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
         calculate_score(Number(document.getElementById("timer").textContent));
 
       document.getElementById("timer").textContent = "";
-      updateres(
-        [document.getElementsByClassName("username")[0].textContent,
+      updateres([
+        document.getElementsByClassName("username")[0].textContent,
         "flask",
         localStorage.getItem("level"),
-        document.getElementsByClassName('score')[0].textContent.split(" ")[1]]
-      );
+        Number(document.getElementsByClassName("score")[0].textContent)
+      
+      ]);
     }, 1000);
   }
   return useColbaObjOne, useColbaObjTwo;
