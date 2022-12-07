@@ -16,16 +16,14 @@
         <label>Введите имя</label>
         <input id="name" />
         <label class="errName">Не верное имя</label>
-        <button class="button" onclick="start()">
-          <span>Начать игру</span>
-        </button>
+        <button class="grow_spin" onclick="start()">начать</button>
       </div>
     </div>
     <div class="windowGamePreview">
       <div class="flask">
         <div class="flaskContent">
-          <blockquote>В каждую колбу надо собрать по одному цвету</blockquote>
-          <button onclick="flask()">Начать</button>
+          <blockquote>В каждую колбочку надо собрать по одному цвету</blockquote>
+          <button class="grow_spin" onclick="flask()">Начать</button>
           <p>
             <label class="ResultsFlask"> Ваш результат: </label>
           </p>
@@ -33,8 +31,8 @@
       </div>
       <div class="piramid">
         <div class="flaskContent">
-          <blockquote>В каждую колбу надо собрать разные цвета</blockquote>
-          <button onclick="piramid()">Начать</button>
+          <blockquote>Вы должны собрать 1 колбочку с пятью цветами, 1 колбочку с четырьмя цветами, 1 колбочку с тремя и так до 1 цвета. Порядок колбочек неважен</blockquote>
+          <button class="grow_spin" onclick="piramid()">Начать</button>
           <p>
             <label class="ResultsPiramid"> Ваш результат: </label>
           </p>
@@ -44,7 +42,7 @@
     <div class="windowGame"></div>
     <div class="windowFlask">
       <div class="setting">
-        <button onClick="toMain()" class="setToMain">в меню</button>
+        <button onClick="toMain()" class="grow_spin">в меню</button>
         <div class="auth">
           <div class="username"></div>
           <div class="score">0</div>
@@ -58,19 +56,20 @@
       <div class="field"></div>
     </div>
     <div class="windowFlaskContinue">
-      <button onclick="flask()">Дальше</button>
+      <span>Ты победил!</span><p></p>
+      <button class="grow_spin" onclick="flask()">Дальше</button>
     </div>
     <div class="windowPiramidContinue">
-      <button onclick="piramid()">Дальше</button>
+      <button class="grow_spin" onclick="piramid()">Дальше</button>
     </div>
     <div class="windowFlaskContinueFailure">
-      <button onclick="flask()">Дальше</button>
+      <button class="grow_spin" onclick="flask()">Дальше</button>
     </div>
     <div class="windowPiramidContinueFailure">
-      <button onclick="piramid()">Дальше</button>
+      <button class="grow_spin" onclick="piramid()">Дальше</button>
     </div>
     <div class="windowPiramid">
-      <button onClick="toMainfrom()">в меню</button>
+      <button  class="grow_spin" onClick="toMainfrom()">в меню</button>
       <div class="setting">
         <div class="auth">
           <div class="username"></div>

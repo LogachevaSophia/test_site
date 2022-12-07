@@ -1,6 +1,12 @@
 body {
-  background-color: brown;
-  margin: 0;
+  /*background-color: brown;*/
+  background: rgb(60, 85, 209);
+  background: radial-gradient(
+    circle,
+    rgba(60, 85, 209, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
+  /*margin: 0;*/
 }
 
 .windowStart,
@@ -18,25 +24,56 @@ body {
   top: 50%;
   left: 50%;
   border-radius: 33px;
+  border: 4px ridge white;
 }
+
 button {
-  display: inline-block;
-  color: rgb(149, 0, 255);
-  font-weight: 700;
-  text-decoration: none;
-  user-select: none;
-  padding: 0.5em 2em;
-  outline: none;
-  border: 2px solid;
-  border-radius: 5px;
-  background-color: rgb(119, 234, 62);
+  font-size: 105%;
+  background: rgb(181 29 204);
+  color: #fff;
+ /* border:0.25rem solid #000000;*/
+  padding: 0.85em 0.75em;
+  margin: 1rem;
+  position: relative;
+  box-shadow: 7px 0 15px black;
+  z-index: 1;
+  overflow: hidden;
 }
+button:hover {
+  color: #3498db;
+}
+button::after {
+  content: "";
+  background: #ecf0f1;
+  position: absolute;
+  z-index: -1;
+  padding: 0.85em 0.75em;
+  display: block;
+}
+button.grow_spin::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0) rotate(-180deg);
+}
+button.grow_spin:hover::after {
+  transform: scale(1, 1) rotate(0deg);
+}
+button[class^="grow"]::after {
+  transition: all 0.3s ease;
+}
+button[class^="grow"]:hover::after {
+  transition: all 0.3s ease-out;
+}
+
 .windowStart {
   position: absolute;
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(199, 163, 163);
+  /* background-color: rgb(199, 163, 163);*/
+  background-color: rgb(90 54 156);
 
   display: flex;
   animation: unshow 1s;
@@ -54,6 +91,7 @@ button {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  color: white;
 }
 
 .windowGamePreview {
@@ -61,7 +99,7 @@ button {
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(194, 28, 209);
+  background-color: rgb(152 17 165);
 
   display: none;
   animation: show 1s;
@@ -83,7 +121,8 @@ button {
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(144 148 255);
+  
 
   display: none;
   animation: show 1s;
@@ -93,7 +132,7 @@ button {
 
   min-height: 100px;
   text-align: center;
-  background-color: rgba(20, 229, 177, 0.244);
+  background-color: rgb(144 148 255);;
 
   display: none;
   animation: show 1s;
@@ -102,73 +141,84 @@ button {
 .flask {
   width: 40%;
   border-radius: 33px;
-  background-color: black;
+  background:rgb(107, 89, 182);
   margin-left: 5%;
   margin-right: 5%;
   color: white;
   margin-top: 2%;
   margin-bottom: 2%;
+
 }
 
 .flask:hover,
 .piramid:hover {
-  background-color: rgb(111, 109, 109);
+  background-color:rgb(132, 110, 217);
 }
 
 .piramid {
   width: 40%;
   border-radius: 33px;
-  background-color: black;
+  background-color:rgb(107, 89, 182);
   margin-left: 5%;
   margin-right: 5%;
   color: white;
   margin-top: 2%;
   margin-bottom: 2%;
+  transition: 0;
 }
 
-.windowFlaskContinueFailure{
+.windowFlaskContinueFailure {
   position: absolute;
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(219, 142, 226);
+  background-color: rgb(144 148 255);;
+  display: block;
+  display: none;
+
+  animation: show 1s;
+}
+
+.windowPiramidContinueFailure {
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(144 148 255);;
   display: block;
   display: none;
   animation: show 1s;
 }
 
-.windowPiramidContinueFailure{
+.windowFlaskContinue {
   position: absolute;
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(219, 142, 226);
+  background-color: rgb(144 148 255);;
   display: block;
   display: none;
   animation: show 1s;
+  color: white;
+  /*font-size: 200%;*/
+}
+.windowFlaskContinue span{
+  font-size: 200%;
+}
+.auth{
+color: white;
 }
 
-
-
-.windowFlaskContinue{
+.windowPiramidContinue {
   position: absolute;
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(219, 142, 226);
+  background-color: rgb(144 148 255);;
   display: block;
   display: none;
   animation: show 1s;
-}
-.windowPiramidContinue{
-  position: absolute;
-
-  min-height: 100px;
-  text-align: center;
-  background-color: rgb(219, 142, 226);
-  display: block;
-  display: none;
-  animation: show 1s;
+  color: white;
 }
 @keyframes show {
   from {
