@@ -93,7 +93,7 @@ button {
 
   min-height: 100px;
   text-align: center;
-  background-color: rgb(255, 0, 0);
+  background-color: rgba(20, 229, 177, 0.244);
 
   display: none;
   animation: show 1s;
