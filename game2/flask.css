@@ -11,6 +11,12 @@
     margin: auto;
     transition: 0.5s;
   }
+  #timerPiramid {
+    font-size: 200%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    min-height: 40px;
+  }
   
   .setToMain{
     display: inline-block;

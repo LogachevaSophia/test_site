@@ -9,6 +9,8 @@ body {
 .windowFlask,
 .windowPiramid,
 .windowFlaskContinueFailure,
+.windowPiramidContinueFailure,
+.windowPiramidContinue,
 .windowFlaskContinue {
   width: 80%;
   height: 80%;
@@ -135,8 +137,30 @@ button {
   animation: show 1s;
 }
 
+.windowPiramidContinueFailure{
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(219, 142, 226);
+  display: block;
+  display: none;
+  animation: show 1s;
+}
+
+
 
 .windowFlaskContinue{
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  background-color: rgb(219, 142, 226);
+  display: block;
+  display: none;
+  animation: show 1s;
+}
+.windowPiramidContinue{
   position: absolute;
 
   min-height: 100px;
