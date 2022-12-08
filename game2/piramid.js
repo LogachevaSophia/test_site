@@ -528,6 +528,32 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
         calculate_score_piramid(
           Number(document.getElementById("timerPiramid").textContent)
         );
+      
+
+
+
+        let score = calculate_score(
+          Number(document.getElementById("timerPiramid").textContent)
+        );
+        if (score <= 5) {
+          document.getElementById("zv1p").style.display = null;
+          document.getElementById("zv2p").style.display = "none";
+          document.getElementById("zv3p").style.display = "none";
+        } else {
+          if (score <= 10) {
+            document.getElementById("zv1p").style.display = null;
+            document.getElementById("zv2p").style.display = null;
+            document.getElementById("zv3p").style.display = "none";
+          } else {
+            document.getElementById("zv1p").style.display = null;
+            document.getElementById("zv2p").style.display = null;
+            document.getElementById("zv3p").style.display = null;
+          }
+        }
+
+
+
+        
 
       document.getElementById("timerPiramid").textContent = "";
       updateres([
