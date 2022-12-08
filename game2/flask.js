@@ -133,8 +133,7 @@ function updateres(prop) {
           piramid: { level: prop[2], score: prop[3] },
         },
       };
-      arr.push(dop);
-      localStorage.setItem("results", JSON.stringify(arr));
+      localStorage.setItem("results", JSON.stringify([dop]));
     }
 
     //у нас нет ничего в резах

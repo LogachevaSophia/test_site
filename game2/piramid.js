@@ -53,9 +53,10 @@ function globalPiramid() {
     JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
   );
   //var name_user = "";
+  console.log(localStorage.getItem("levelPiramid"));
   localStorage.setItem("name_user", "");
   let datapiramid = [];
-  datapiramid[0] = {
+  datapiramid[1] = {
     countColb: 5,
     countPart: 5,
     arrColb: [
@@ -72,7 +73,7 @@ function globalPiramid() {
 
   let arrUse = [];
   localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
-  if (String(localStorage.getItem("levelPiramid")) == "null") {
+  if ((String(localStorage.getItem("levelPiramid")) == "null")||(String(localStorage.getItem("levelPiramid"))=='0')) {
     localStorage.setItem("levelPiramid", 1);
   }
 }
@@ -94,7 +95,7 @@ function start_piramid() {
   } else {
     name_user = document.getElementById("name").value;
     if (localStorage.getItem("levelPiramid") == null) {
-      localStorage.setItem("levelPiramid", 0);
+      localStorage.setItem("levelPiramid", 1);
     }
     if (document.getElementsByClassName("level")[1].textContent == "Level: ") {
       document.getElementsByClassName("level")[1].textContent += String(
@@ -109,7 +110,7 @@ function start_piramid() {
         renderStepLevelPiramid();
       localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
     }
-
+    console.log(localStorage.getItem('levelPiramid'));
     document.getElementById("timerPiramid").textContent = 30;
 
     time = parseFloat(document.getElementById("timerPiramid").textContent);
@@ -531,7 +532,7 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
       document.getElementById("timerPiramid").textContent = "";
       updateres([
         document.getElementsByClassName("username")[1].textContent,
-        "flask",
+        "piramid",
         localStorage.getItem("levelPiramid"),
         Number(document.getElementsByClassName("score")[1].textContent),
       ]);

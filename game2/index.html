@@ -25,7 +25,7 @@
         <div class="flaskContent">
           <blockquote>В каждую колбочку надо собрать по одному цвету</blockquote>
           <button class="grow_spin" onclick="flask()">Начать</button>
-          <button class="grow_spin" onclick="rating()">Рейтинг</button>
+          <button class="grow_spin" onclick="rating(1)">Рейтинг</button>
           <p>
             <label class="ResultsFlask"> Ваш результат: </label>
           </p>
@@ -35,7 +35,7 @@
         <div class="flaskContent">
           <blockquote>Вы должны собрать 1 колбочку с пятью цветами, 1 колбочку с четырьмя цветами, 1 колбочку с тремя и так до 1 цвета. Порядок колбочек неважен</blockquote>
           <button class="grow_spin" onclick="piramid()">Начать</button>
-          <button class="grow_spin" onclick="rating()">Рейтинг</button>
+          <button class="grow_spin" onclick="rating(2)">Рейтинг</button>
           <p>
             <label class="ResultsPiramid"> Ваш результат: </label>
           </p>
@@ -104,7 +104,6 @@
       <button class="grow_spin" onclick="back()">Назад</button>
     </div>
     <div class="windowRatingFlask">
-      <div class="conteinerRatingFlask"></div>
       <table class="table">
         <tr>
           <th>Имя</th>

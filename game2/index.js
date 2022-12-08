@@ -17,41 +17,128 @@ function start() {
     localStorage.setItem("name", document.getElementById("name").value);
     localStorage.setItem("level", res["level"]);
     res = getResultPiramid(name);
+    console.log("Достижение по пирамиде: ", res);
     str = "Ваш результат: уровень: " + res["level"] + " Очки: " + res["score"];
     document.getElementsByClassName("ResultsPiramid")[0].textContent = str;
     localStorage.setItem("levelPiramid", res["level"]);
   }
 }
 
-function rating() {
-  windowRatingFlask = document.getElementsByClassName("windowRatingFlask")[0];
-  document.getElementsByClassName("windowGamePreview")[0].style.display =
-    "none";
-  windowRatingFlask.style.display = "block";
-  let create;
-  let dop;
-  let res = JSON.parse(localStorage.getItem("results"));
-  console.log(res);
-  for (let i = 0; i < res.length; i++) {
-    createParent = document.createElement("tr");
+function rating(prop) {
+    console.log(prop);
+    if (prop == "1"){
+        windowRatingFlask = document.getElementsByClassName("windowRatingFlask")[0];
+        let elem = document.getElementsByClassName('table')[0];
+        elem.parentNode.removeChild(elem);
+        elem = document.createElement("table");
+        elem.className = "table";
+      
+          let elem2 = document.createElement("tr");
+          let elem3 = document.createElement("th");
+          elem3.textContent = "Имя";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+          elem3 = document.createElement("th");
+          elem3.textContent = "Уровень";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+          elem3 = document.createElement("th");
+          elem3.textContent = "Очки";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+        windowRatingFlask.appendChild(elem);
+        document.getElementsByClassName("windowGamePreview")[0].style.display =
+          "none";
+        windowRatingFlask.style.display = "block";
+        let create;
+        let dop;
+        let res = JSON.parse(localStorage.getItem("results"));
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          createParent = document.createElement("tr");
+      
+          create = document.createElement("th");
+          dop = res[i]["name"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          create = document.createElement("th");
+          dop = res[i]["results"]["flask"]["level"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          create = document.createElement("th");
+          dop = res[i]["results"]["flask"]["score"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          document.getElementsByClassName("table")[0].appendChild(createParent);
+        }
+    }
+    else{
+        windowRatingFlask = document.getElementsByClassName("windowRatingFlask")[0];
+        let elem = document.getElementsByClassName('table')[0];
+        elem.parentNode.removeChild(elem);
+        elem = document.createElement("table");
+        elem.className = "table";
+      
+          let elem2 = document.createElement("tr");
+          let elem3 = document.createElement("th");
+          elem3.textContent = "Имя";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+          elem3 = document.createElement("th");
+          elem3.textContent = "Уровень";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+          elem3 = document.createElement("th");
+          elem3.textContent = "Очки";
+          elem2.appendChild(elem3);
+          elem.appendChild(elem2);
+      
+      
+        windowRatingFlask.appendChild(elem);
+        document.getElementsByClassName("windowGamePreview")[0].style.display =
+          "none";
+        windowRatingFlask.style.display = "block";
+        let create;
+        let dop;
+        let res = JSON.parse(localStorage.getItem("results"));
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          createParent = document.createElement("tr");
+      
+          create = document.createElement("th");
+          dop = res[i]["name"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          create = document.createElement("th");
+          dop = res[i]["results"]["piramid"]["level"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          create = document.createElement("th");
+          dop = res[i]["results"]["piramid"]["score"];
+          create.textContent = String(dop);
+          createParent.appendChild(create);
+      
+          document.getElementsByClassName("table")[0].appendChild(createParent);
+        }
 
-    create = document.createElement("th");
-    dop = res[i]["name"];
-    create.textContent = String(dop);
-    createParent.appendChild(create);
+    }
 
-    create = document.createElement("th");
-    dop = res[i]["results"]["flask"]["level"];
-    create.textContent = String(dop);
-    createParent.appendChild(create);
-
-    create = document.createElement("th");
-    dop = res[i]["results"]["flask"]["score"];
-    create.textContent = String(dop);
-    createParent.appendChild(create);
-
-    document.getElementsByClassName("table")[0].appendChild(createParent);
-  }
+ 
 }
 
 function back() {
@@ -97,24 +184,25 @@ function getResultFlask(name) {
   }
 }
 function getResultPiramid(name) {
-  let res = JSON.parse(localStorage.getItem("results"));
-  if (String(res) == "null") {
-    return { level: 0, score: 0 };
-  } else {
-    //получили массив объектов
-    let fl = false;
-    for (let i = 0; i < res.length; i++) {
-      if (res[i]["name"] == name) {
-        fl == true;
-        break;
+    let res = JSON.parse(localStorage.getItem("results"));
+    if (String(res) == "null") {
+      return { level: 0, score: 0 };
+    } else {
+      //получили массив объектов
+      let fl = false;
+      let i;
+      for (i = 0; i < res.length; i++) {
+        if (res[i]["name"] == name) {
+          fl = true;
+          break;
+        }
+      }
+      if (fl) {
+        //нашли такого пользователя
+        return res[i]["results"]["piramid"];
+      } else {
+        //играет впервые
+        return { level: 0, score: 0 };
       }
     }
-    if (fl) {
-      //нашли такого пользователя
-      return res[i]["results"]["piramid"];
-    } else {
-      //играет впервые
-      return { level: 0, score: 0 };
-    }
-  }
 }
