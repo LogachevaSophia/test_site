@@ -17,7 +17,9 @@ body {
 .windowFlaskContinueFailure,
 .windowPiramidContinueFailure,
 .windowPiramidContinue,
-.windowFlaskContinue {
+.windowSettings,
+.windowFlaskContinue,
+.windowRatingFlask {
   width: 80%;
   height: 80%;
   transform: translate(-50%, -50%);
@@ -66,6 +68,21 @@ button[class^="grow"]::after {
 button[class^="grow"]:hover::after {
   transition: all 0.3s ease-out;
 }
+.main, .main * {width: 100%;
+height: 20%;}
+.table{
+  background-color: antiquewhite;
+  width: 80%;
+  margin: 0 auto;
+}
+
+th{
+  background-color: rgb(249, 242, 242);
+  box-shadow: 10px 5px 5px black;
+  font-size: 150%;
+  
+
+}
 
 .windowStart {
   position: absolute;
@@ -79,6 +96,41 @@ button[class^="grow"]:hover::after {
   animation: unshow 1s;
   justify-content: center;
 }
+
+.conteinerRatingFlask{
+  
+  margin: 2% auto;
+
+}
+.windowRatingFlask{
+
+    position: absolute;
+  
+    min-height: 100px;
+    text-align: center;
+    /* background-color: rgb(199, 163, 163);*/
+    background-color: rgb(231, 0, 131);
+  
+    display: none;
+    animation: unshow 1s;
+    justify-content: center;
+
+}
+
+.windowSettings{
+  position: absolute;
+
+  min-height: 100px;
+  text-align: center;
+  /* background-color: rgb(199, 163, 163);*/
+  background-color: rgb(211, 142, 14);
+
+  display: none;
+  animation: unshow 1s;
+  justify-content: center;
+}
+
+
 .errName {
   display: none;
   color: rgb(255, 0, 0);
@@ -146,6 +198,7 @@ button[class^="grow"]:hover::after {
   margin-right: 5%;
   color: white;
   margin-top: 2%;
+  display: inline-block;
   margin-bottom: 2%;
 
 }
@@ -153,6 +206,11 @@ button[class^="grow"]:hover::after {
 .flask:hover,
 .piramid:hover {
   background-color:rgb(132, 110, 217);
+}
+#vIn{
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 5%;
 }
 
 .piramid {
@@ -164,7 +222,7 @@ button[class^="grow"]:hover::after {
   color: white;
   margin-top: 2%;
   margin-bottom: 2%;
-  transition: 0;
+  display: inline-block;
 }
 
 .windowFlaskContinueFailure {
@@ -205,6 +263,22 @@ button[class^="grow"]:hover::after {
 .windowFlaskContinue span{
   font-size: 200%;
 }
+.windowFlaskContinueFailure span{
+  font-size: 200%;
+  color: white;
+}
+
+
+.windowPiramidContinueFailure span{
+  font-size: 200%;
+  color: white;
+}
+.windowPiramidContinue span{
+  font-size: 200%;
+  color: white;
+}
+
+
 .auth{
 color: white;
 }

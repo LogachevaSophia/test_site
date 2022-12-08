@@ -1,6 +1,28 @@
 //let toMainlet = false;
 //const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
 
+function Synth(context) { 
+  this.audioContext = context; 
+  this.output = context.createGain(); 
+  this._oscillators = {}; 
+} 
+
+
+Synth.prototype.play = function(note) { 
+  var oscillator; 
+
+  oscillator = this._oscillators[note.pitch] = this.audioContext.createOscillator(); 
+  oscillator.frequency.value = note.frequency; 
+  oscillator.connect(this.output); 
+  oscillator.start(0); 
+  return oscillator; 
+}; 
+
+Synth.prototype.stop = function(note) { 
+  this._oscillators[note.pitch].stop(0); 
+};
+
+
 function global() {
   localStorage.setItem("toMainlet", false);
 
@@ -32,7 +54,8 @@ function global() {
     localStorage.setItem("level", 0);
   }
 
-  console.log('arrUse = ', localStorage.getItem('arrUse'));
+
+  
 
 
 
@@ -42,7 +65,7 @@ function toMain() {
   document.getElementsByClassName("windowFlask")[0].style.display = "none";
   document.getElementsByClassName("windowPiramid")[0].style.display = "none";
   document.getElementsByClassName("windowGamePreview")[0].style.display =
-    "flex";
+    "block";
 
   let str =
     "уровень: " +
@@ -91,9 +114,9 @@ localStorage.removeItem("results");
 localStorage.removeItem("level");
 
 function updateres(prop) {
-  console.log(prop);
+
   /*name, flask|piramid, level, score*/
-  console.log(localStorage.getItem("results"));
+
   let arr = JSON.parse(localStorage.getItem("results"));
 
   if (String(arr) == "null") {
@@ -472,7 +495,8 @@ function renderPreviewLevel(level = 0) {
       create.addEventListener("click", function (e) {
         let arrUse = JSON.parse(localStorage.getItem("arrUse"));
         e.preventDefault();
-        console.log(document.getElementById("1").getAttribute("status"));
+
+        
         if (document.getElementById("1").getAttribute("status") == 1) {
           if (arrUse.length == 0) {
             arrUse.push(this.getAttribute("numb"));
@@ -529,7 +553,8 @@ function renderLevel(level) {
     create.addEventListener("click", function (e) {
       let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       e.preventDefault();
-      console.log(document.getElementById("1").getAttribute("status"));
+
+      
         if (arrUse.length == 0) {
           arrUse.push(this.getAttribute("numb"));
           localStorage.setItem('arrUse', JSON.stringify(arrUse));
@@ -540,7 +565,7 @@ function renderLevel(level) {
 
             document.getElementById(arrUse[0]).style.marginTop = "3%";
             arrUse.splice(0, 1);
-            console.log("arrUse = ", arrUse);
+
             localStorage.setItem("arrUse", JSON.stringify(arrUse));
           } else {
             let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
@@ -563,7 +588,7 @@ function renderLevel(level) {
 function updateColb() {
   let arrColbas = JSON.parse(localStorage.getItem('arrColbas'));
   let arrColor = JSON.parse(localStorage.getItem('arrColor'))
-  console.log(arrColbas);
+
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
       document.getElementsByClassName("partColba")[
@@ -610,7 +635,8 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
     //надо перекрасить, а я опять забыла
   }
   //updateColb();
-  console.log(arrUse);
+
+  
   //забыла опустить колбу
   document.getElementById(arrUse[0]).style.marginTop = "3%";
 
@@ -631,6 +657,26 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       document.getElementsByClassName("score")[0].textContent =
         Number(document.getElementsByClassName("score")[0].textContent) +
         calculate_score(Number(document.getElementById("timer").textContent));
+      let score = calculate_score(Number(document.getElementById("timer").textContent));
+      if (score <=5){
+        document.getElementById('zv1').style.display = null;
+        document.getElementById('zv2').style.display = 'none';
+        document.getElementById('zv3').style.display = 'none';
+      }
+      else{
+        if (score<=10){
+          document.getElementById('zv1').style.display = null;
+        document.getElementById('zv2').style.display = null;
+        document.getElementById('zv3').style.display = 'none';
+
+        }
+        else{
+          document.getElementById('zv1').style.display = null;
+        document.getElementById('zv2').style.display = null;
+        document.getElementById('zv3').style.display = null;
+
+        }
+      }
 
       document.getElementById("timer").textContent = "";
       updateres([

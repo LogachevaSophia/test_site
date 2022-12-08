@@ -5,7 +5,7 @@ function toMainfrom() {
   document.getElementsByClassName("windowFlask")[0].style.display = "none";
   document.getElementsByClassName("windowPiramid")[0].style.display = "none";
   document.getElementsByClassName("windowGamePreview")[0].style.display =
-    "flex";
+    "block";
   document.getElementsByClassName(
     "windowPiramidContinueFailure"
   )[0].style.display = "none";

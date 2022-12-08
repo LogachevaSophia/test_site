@@ -17,6 +17,7 @@
         <input id="name" />
         <label class="errName">Не верное имя</label>
         <button class="grow_spin" onclick="start()">начать</button>
+        
       </div>
     </div>
     <div class="windowGamePreview">
@@ -24,6 +25,7 @@
         <div class="flaskContent">
           <blockquote>В каждую колбочку надо собрать по одному цвету</blockquote>
           <button class="grow_spin" onclick="flask()">Начать</button>
+          <button class="grow_spin" onclick="rating()">Рейтинг</button>
           <p>
             <label class="ResultsFlask"> Ваш результат: </label>
           </p>
@@ -33,11 +35,15 @@
         <div class="flaskContent">
           <blockquote>Вы должны собрать 1 колбочку с пятью цветами, 1 колбочку с четырьмя цветами, 1 колбочку с тремя и так до 1 цвета. Порядок колбочек неважен</blockquote>
           <button class="grow_spin" onclick="piramid()">Начать</button>
+          <button class="grow_spin" onclick="rating()">Рейтинг</button>
           <p>
             <label class="ResultsPiramid"> Ваш результат: </label>
           </p>
         </div>
       </div>
+      <br>
+      <button class="grow_spin" onclick="settings()">Настройки</button>
+  
     </div>
     <div class="windowGame"></div>
     <div class="windowFlask">
@@ -57,15 +63,22 @@
     </div>
     <div class="windowFlaskContinue">
       <span>Ты победил!</span><p></p>
+      <img id = 'zv1' src="zvezda.png">
+      <img id = 'zv2' src="zvezda.png">
+      <img id = 'zv3' src="zvezda.png">
+      <br>
       <button class="grow_spin" onclick="flask()">Дальше</button>
     </div>
     <div class="windowPiramidContinue">
+      <span>Ты победил!</span><p></p>
       <button class="grow_spin" onclick="piramid()">Дальше</button>
     </div>
     <div class="windowFlaskContinueFailure">
+      <span>Неудача.. попробуй еще раз...</span><p></p>
       <button class="grow_spin" onclick="flask()">Дальше</button>
     </div>
     <div class="windowPiramidContinueFailure">
+      <span>Неудача... попробуй еще раз</span><p></p>
       <button class="grow_spin" onclick="piramid()">Дальше</button>
     </div>
     <div class="windowPiramid">
@@ -83,10 +96,29 @@
       </div>
       <div class="field"></div>
     </div>
+    <div class="windowSettings">
+      <span id="vIn">
+        Громкость
+      </span><input type="range" id="vIn" min="0" max="100" oninput="changeVolume()" />
+      <br>
+      <button class="grow_spin" onclick="back()">Назад</button>
+    </div>
+    <div class="windowRatingFlask">
+      <div class="conteinerRatingFlask"></div>
+      <table class="table">
+        <tr>
+          <th>Имя</th>
+          <th>Уровень</th>
+          <th>Очки</th>
+        </tr>
+      </table>
+      <button class="grow_spin" onclick="back()">Назад</button>
+    </div>
   </body>
   <footer>
     <script id="indexJS" src="index.js"></script>
     <script id="flaskJS" src="flask.js"></script>
     <script id="piramidJS" src="piramid.js"></script>
+    
   </footer>
 </html>
