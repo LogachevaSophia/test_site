@@ -1,4 +1,6 @@
 var audio;
+let sound;
+
 audio = new Audio("sound2.mp3");
 function start() {
   let name = document.getElementById("name").value;
@@ -22,6 +24,13 @@ function start() {
     document.getElementsByClassName("ResultsPiramid")[0].textContent = str;
     localStorage.setItem("levelPiramid", res["level"]);
   }
+}
+
+function PlaySound(){
+    var audio;
+    audio = new Audio("button.mp3");
+    audio.play();
+
 }
 
 function rating(prop) {

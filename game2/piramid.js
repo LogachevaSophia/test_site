@@ -54,7 +54,6 @@ function globalPiramid() {
   );
   //var name_user = "";
 
-  
   localStorage.setItem("name_user", "");
   let datapiramid = [];
   datapiramid[1] = {
@@ -74,7 +73,10 @@ function globalPiramid() {
 
   let arrUse = [];
   localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
-  if ((String(localStorage.getItem("levelPiramid")) == "null")||(String(localStorage.getItem("levelPiramid"))=='0')) {
+  if (
+    String(localStorage.getItem("levelPiramid")) == "null" ||
+    String(localStorage.getItem("levelPiramid")) == "0"
+  ) {
     localStorage.setItem("levelPiramid", 1);
   }
 }
@@ -112,7 +114,6 @@ function start_piramid() {
       localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
     }
 
-    
     document.getElementById("timerPiramid").textContent = 30;
 
     time = parseFloat(document.getElementById("timerPiramid").textContent);
@@ -143,6 +144,8 @@ function start_piramid() {
           clearInterval(interval);
         }
         if (chekAllProbPiramid()) {
+          
+
           setTimeout(function () {
             document.getElementsByClassName(
               "windowPiramidContinue"
@@ -202,8 +205,6 @@ function renderStepLevelPiramid() {
     arr.push(arrPart);
     arrPart = [];
   }
-
-  
 
   for (let i = 0; i < 10 * level; i++) {
     let one = Math.floor(Math.random() * arrUse.length);
@@ -463,7 +464,6 @@ function updateColbPiramid() {
   let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
   let arrColor = JSON.parse(localStorage.getItem("arrColorPiramid"));
 
-  
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
       document.getElementsByClassName("partColba")[
@@ -516,6 +516,10 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
 
   //проверка на выигрыш
   if (chekAllProbPiramid()) {
+    audio.pause();
+          let sound = new Audio("winner.mp3");
+          sound.play();
+          setTimeout(function () {audio.play();},4000);
     setTimeout(function () {
       localStorage.setItem(
         "levelPiramid",
@@ -532,32 +536,25 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
         calculate_score_piramid(
           Number(document.getElementById("timerPiramid").textContent)
         );
-      
 
-
-
-        let score = calculate_score(
-          Number(document.getElementById("timerPiramid").textContent)
-        );
-        if (score <= 5) {
+      let score = calculate_score(
+        Number(document.getElementById("timerPiramid").textContent)
+      );
+      if (score <= 5) {
+        document.getElementById("zv1p").style.display = null;
+        document.getElementById("zv2p").style.display = "none";
+        document.getElementById("zv3p").style.display = "none";
+      } else {
+        if (score <= 10) {
           document.getElementById("zv1p").style.display = null;
-          document.getElementById("zv2p").style.display = "none";
+          document.getElementById("zv2p").style.display = null;
           document.getElementById("zv3p").style.display = "none";
         } else {
-          if (score <= 10) {
-            document.getElementById("zv1p").style.display = null;
-            document.getElementById("zv2p").style.display = null;
-            document.getElementById("zv3p").style.display = "none";
-          } else {
-            document.getElementById("zv1p").style.display = null;
-            document.getElementById("zv2p").style.display = null;
-            document.getElementById("zv3p").style.display = null;
-          }
+          document.getElementById("zv1p").style.display = null;
+          document.getElementById("zv2p").style.display = null;
+          document.getElementById("zv3p").style.display = null;
         }
-
-
-
-        
+      }
 
       document.getElementById("timerPiramid").textContent = "";
       updateres([

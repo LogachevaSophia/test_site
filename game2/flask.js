@@ -687,6 +687,11 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
 
   //проверка на выигрыш
   if (chekAllProb()) {
+    audio.pause();
+    let sound = new Audio("winner.mp3");
+    sound.play();
+    setTimeout(function () {audio.play();},4000);
+    
     setTimeout(function () {
       localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
       document.getElementsByClassName("windowFlaskContinue")[0].style.display =

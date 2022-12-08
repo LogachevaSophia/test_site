@@ -16,7 +16,7 @@
         <label>Введите имя</label>
         <input id="name" />
         <label class="errName">Не верное имя</label>
-        <button class="grow_spin" onclick="start()">начать</button>
+        <button class="grow_spin" onclick="start()" onmouseover="PlaySound()">начать</button>
         
       </div>
     </div>
@@ -24,8 +24,8 @@
       <div class="flask">
         <div class="flaskContent">
           <blockquote>В каждую колбочку надо собрать по одному цвету</blockquote>
-          <button class="grow_spin" onclick="flask()">Начать</button>
-          <button class="grow_spin" onclick="rating(1)">Рейтинг</button>
+          <button class="grow_spin" onclick="flask()" onmouseover="PlaySound()">Начать</button>
+          <button class="grow_spin" onclick="rating(1)" onmouseover="PlaySound()">Рейтинг</button>
           <p>
             <label class="ResultsFlask"> Ваш результат: </label>
           </p>
@@ -34,21 +34,21 @@
       <div class="piramid">
         <div class="flaskContent">
           <blockquote>Вы должны собрать 1 колбочку с пятью цветами, 1 колбочку с четырьмя цветами, 1 колбочку с тремя и так до 1 цвета. Порядок колбочек неважен</blockquote>
-          <button class="grow_spin" onclick="piramid()">Начать</button>
-          <button class="grow_spin" onclick="rating(2)">Рейтинг</button>
+          <button class="grow_spin" onclick="piramid()" onmouseover="PlaySound()">Начать</button>
+          <button class="grow_spin" onclick="rating(2)" onmouseover="PlaySound()">Рейтинг</button>
           <p>
             <label class="ResultsPiramid"> Ваш результат: </label>
           </p>
         </div>
       </div>
       <br>
-      <button class="grow_spin" onclick="settings()">Настройки</button>
+      <button class="grow_spin" onclick="settings()" onmouseover="PlaySound()">Настройки</button>
   
     </div>
     <div class="windowGame"></div>
     <div class="windowFlask">
       <div class="setting">
-        <button onClick="toMain()" class="grow_spin">в меню</button>
+        <button onClick="toMain()" class="grow_spin" onmouseover="PlaySound()">в меню</button>
         <div class="auth">
           <div class="username"></div>
           <div class="score">0</div>
@@ -67,7 +67,7 @@
       <img id = 'zv2' src="zvezda.png">
       <img id = 'zv3' src="zvezda.png">
       <br>
-      <button class="grow_spin" onclick="flask()">Дальше</button>
+      <button class="grow_spin" onclick="flask()" onmouseover="PlaySound()">Дальше</button>
     </div>
     <div class="windowPiramidContinue">
       <span>Ты победил!</span><p></p>
@@ -75,18 +75,18 @@
       <img id = 'zv2p' src="zvezda.png">
       <img id = 'zv3p' src="zvezda.png">
       <br>
-      <button class="grow_spin" onclick="piramid()">Дальше</button>
+      <button class="grow_spin" onclick="piramid()" onmouseover="PlaySound()">Дальше</button>
     </div>
     <div class="windowFlaskContinueFailure">
       <span>Неудача.. попробуй еще раз...</span><p></p>
-      <button class="grow_spin" onclick="flask()">Дальше</button>
+      <button class="grow_spin" onclick="flask()" onmouseover="PlaySound()">Дальше</button>
     </div>
     <div class="windowPiramidContinueFailure">
       <span>Неудача... попробуй еще раз</span><p></p>
-      <button class="grow_spin" onclick="piramid()">Дальше</button>
+      <button class="grow_spin" onclick="piramid()" onmouseover="PlaySound()">Дальше</button>
     </div>
     <div class="windowPiramid">
-      <button  class="grow_spin" onClick="toMainfrom()">в меню</button>
+      <button  class="grow_spin" onClick="toMainfrom()" onmouseover="PlaySound()">в меню</button>
       <div class="setting">
         <div class="auth">
           <div class="username"></div>
@@ -105,7 +105,7 @@
         Громкость
       </span><input type="range" id="vIn" min="0" max="100" oninput="changeVolume()" />
       <br>
-      <button class="grow_spin" onclick="back()">Назад</button>
+      <button class="grow_spin" onclick="back()" onmouseover="PlaySound()">Назад</button>
     </div>
     <div class="windowRatingFlask">
       <table class="table">
@@ -115,7 +115,7 @@
           <th>Очки</th>
         </tr>
       </table>
-      <button class="grow_spin" onclick="back()">Назад</button>
+      <button class="grow_spin" onclick="back()" onmouseover="PlaySound()">Назад</button>
     </div>
   </body>
   <footer>
