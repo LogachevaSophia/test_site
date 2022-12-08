@@ -1,27 +1,26 @@
 //let toMainlet = false;
 //const arrColor = ["white", "red", "yellow", "green", "brown", "black"];
 
-function Synth(context) { 
-  this.audioContext = context; 
-  this.output = context.createGain(); 
-  this._oscillators = {}; 
-} 
+function Synth(context) {
+  this.audioContext = context;
+  this.output = context.createGain();
+  this._oscillators = {};
+}
 
+Synth.prototype.play = function (note) {
+  var oscillator;
 
-Synth.prototype.play = function(note) { 
-  var oscillator; 
-
-  oscillator = this._oscillators[note.pitch] = this.audioContext.createOscillator(); 
-  oscillator.frequency.value = note.frequency; 
-  oscillator.connect(this.output); 
-  oscillator.start(0); 
-  return oscillator; 
-}; 
-
-Synth.prototype.stop = function(note) { 
-  this._oscillators[note.pitch].stop(0); 
+  oscillator = this._oscillators[note.pitch] =
+    this.audioContext.createOscillator();
+  oscillator.frequency.value = note.frequency;
+  oscillator.connect(this.output);
+  oscillator.start(0);
+  return oscillator;
 };
 
+Synth.prototype.stop = function (note) {
+  this._oscillators[note.pitch].stop(0);
+};
 
 function global() {
   localStorage.setItem("toMainlet", false);
@@ -53,12 +52,6 @@ function global() {
   if (String(localStorage.getItem("level")) == "null") {
     localStorage.setItem("level", 0);
   }
-
-
-  
-
-
-
 }
 
 function toMain() {
@@ -114,7 +107,6 @@ localStorage.removeItem("results");
 localStorage.removeItem("level");
 
 function updateres(prop) {
-
   /*name, flask|piramid, level, score*/
 
   let arr = JSON.parse(localStorage.getItem("results"));
@@ -392,7 +384,7 @@ function start_flask() {
         document.getElementsByClassName("status-bar")[0].style.width = 0 + "%";
         //заканчиваем игру
       } else {
-        if (localStorage.getItem("toMainlet") == 'true') {
+        if (localStorage.getItem("toMainlet") == "true") {
           localStorage.setItem("toMainlet", false);
           document.getElementById("timer").textContent = "";
           clearInterval(interval);
@@ -448,66 +440,6 @@ function renderPreviewLevel(level = 0) {
     let create = document.createElement("div");
     create.className = "colba";
 
-
-
-  
-    create.onmousedown = function(event) {
-
-      let shiftX = event.clientX - create.getBoundingClientRect().left;
-      let shiftY = event.clientY - create.getBoundingClientRect().top;
-    
-      create.style.position = 'absolute';
-      create.style.zIndex = 1000;
-      document.body.append(create);
-    
-      moveAt(event.pageX, event.pageY);
-    
-      // переносит мяч на координаты (pageX, pageY),
-      // дополнительно учитывая изначальный сдвиг относительно указателя мыши
-      function moveAt(pageX, pageY) {
-        create.style.left = pageX - shiftX + 'px';
-        create.style.top = pageY - shiftY + 'px';
-      }
-    
-      function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-      }
-    
-      // передвигаем мяч при событии mousemove
-      document.addEventListener('mousemove', onMouseMove);
-    
-      // отпустить мяч, удалить ненужные обработчики
-      create.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        create.onmouseup = null;
-      };
-    
-    };
-    
-    create.ondragstart = function() {
-      return false;
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     create.setAttribute("numb", j);
     create.id = j;
     let colba = new Colba();
@@ -526,7 +458,7 @@ function renderPreviewLevel(level = 0) {
         let arrUse = JSON.parse(localStorage.getItem("arrUse"));
         e.preventDefault();
         if (this.getAttribute("status") == 0) {
-          if (String(arrUse) == 'null') arrUse = []
+          if (String(arrUse) == "null") arrUse = [];
           if (arrUse.length == 0) {
             //первый раз нажимает
             arrUse.push(this.getAttribute("numb"));
@@ -543,7 +475,8 @@ function renderPreviewLevel(level = 0) {
             } else {
               let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
               let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-              useColbaObjOne, useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this);
+              useColbaObjOne,
+                (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
               updateColb();
             }
           }
@@ -557,7 +490,6 @@ function renderPreviewLevel(level = 0) {
         let arrUse = JSON.parse(localStorage.getItem("arrUse"));
         e.preventDefault();
 
-        
         if (document.getElementById("1").getAttribute("status") == 1) {
           if (arrUse.length == 0) {
             arrUse.push(this.getAttribute("numb"));
@@ -573,7 +505,8 @@ function renderPreviewLevel(level = 0) {
             } else {
               let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
               let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-              useColbaObjOne, useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this);
+              useColbaObjOne,
+                (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
               updateColb();
             }
           }
@@ -584,9 +517,10 @@ function renderPreviewLevel(level = 0) {
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem('arrColbas', JSON.stringify(arrColbas));
+  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
   updateColb();
 }
+let tyanucolbu;
 
 function renderLevel(level) {
   /*localStorage.setItem('username',document.getElementById('name').value);*/
@@ -601,6 +535,39 @@ function renderLevel(level) {
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
+    create.draggable = "true";
+
+    create.addEventListener("dragstart", function (e) {
+      let arrUse = JSON.parse(localStorage.getItem('arrUse'));
+      arrUse[0] = this.id;
+      localStorage.setItem('arrUse', JSON.stringify(arrUse));
+    });
+
+    create.addEventListener("dragend", function (e) {});
+
+    create.addEventListener("dragover", function (e) {
+      e.preventDefault();
+    });
+    create.addEventListener("dragenter", function (e) {
+
+    });
+
+    create.addEventListener("dragleave", function (e) {
+
+    });
+
+    create.addEventListener("drop", function (e) {
+      console.log("drop");
+      let arrUse = JSON.parse(localStorage.getItem('arrUse'));
+      let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
+      let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
+      useColbaObjOne,
+        (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
+      updateColb();
+
+      console.log("drop");
+    });
+
     create.setAttribute("numb", j);
     create.id = j;
     let colba = new Colba();
@@ -615,40 +582,39 @@ function renderLevel(level) {
       let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       e.preventDefault();
 
-      
-        if (arrUse.length == 0) {
-          arrUse.push(this.getAttribute("numb"));
-          localStorage.setItem('arrUse', JSON.stringify(arrUse));
-          this.style.marginTop = 0;
+      if (arrUse.length == 0) {
+        arrUse.push(this.getAttribute("numb"));
+        localStorage.setItem("arrUse", JSON.stringify(arrUse));
+        this.style.marginTop = 0;
+      } else {
+        //пользователь дурак и решил в саму себя же перелить
+        if (this.getAttribute("numb") == arrUse[0]) {
+          document.getElementById(arrUse[0]).style.marginTop = "3%";
+          arrUse.splice(0, 1);
+
+          localStorage.setItem("arrUse", JSON.stringify(arrUse));
         } else {
-          //пользователь дурак и решил в саму себя же перелить
-          if (this.getAttribute("numb") == arrUse[0]) {
-
-            document.getElementById(arrUse[0]).style.marginTop = "3%";
-            arrUse.splice(0, 1);
-
-            localStorage.setItem("arrUse", JSON.stringify(arrUse));
-          } else {
-            let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
-            let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-            useColbaObjOne, useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this);
-            arrUse.splice(0, 1);
-            localStorage.setItem("arrUse", JSON.stringify(arrUse));
-            updateColb();
-          }
+          let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
+          let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
+          useColbaObjOne,
+            (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
+          arrUse.splice(0, 1);
+          localStorage.setItem("arrUse", JSON.stringify(arrUse));
+          updateColb();
         }
+      }
       localStorage.setItem("arrUse", JSON.stringify(arrUse));
     });
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem('arrColbas', JSON.stringify(arrColbas));
+  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
   updateColb();
 }
 
 function updateColb() {
-  let arrColbas = JSON.parse(localStorage.getItem('arrColbas'));
-  let arrColor = JSON.parse(localStorage.getItem('arrColor'))
+  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColor = JSON.parse(localStorage.getItem("arrColor"));
 
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
@@ -660,8 +626,8 @@ function updateColb() {
 }
 
 function move(useColbaObjOne, useColbaObjTwo, useObj) {
-  let arrColbas = JSON.parse(localStorage.getItem('arrColbas'));
-  let arrUse = JSON.parse(localStorage.getItem('arrUse'));
+  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrUse = JSON.parse(localStorage.getItem("arrUse"));
 
   let useColbaObjOneColor = useColbaObjOne.getColors(); //цвета первой колбы
   let useColbaObjTwoColor = useColbaObjTwo.getColors(); //цвета второй колбы
@@ -680,8 +646,8 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       useColbaObjOne.colors[inColorOne] = 0;
     }
   }
-  localStorage.setItem('arrColbas', JSON.stringify(arrColbas));
-  localStorage.setItem('arrUse', JSON.stringify(arrUse));
+  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  localStorage.setItem("arrUse", JSON.stringify(arrUse));
   //а вдруг там несколько блоков, которые надо перелить?
 
   inColorOne = findColor(useColbaObjOne.colors);
@@ -697,15 +663,18 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   }
   //updateColb();
 
-  
   //забыла опустить колбу
-  document.getElementById(arrUse[0]).style.marginTop = "3%";
+  try{
+  document.getElementById(arrUse[0]).style.marginTop = "3%";}
+  catch{}
 
   arrColbas[arrUse[0]] = useColbaObjOne;
   arrColbas[useObj.getAttribute("numb")] = useColbaObjTwo;
   arrUse.splice(0, 1);
-  localStorage.setItem('arrColbas', JSON.stringify(arrColbas));
-  localStorage.setItem('arrUse', JSON.stringify(arrUse));
+  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  updateColb();
+  
 
   //проверка на выигрыш
   if (chekAllProb()) {
@@ -718,24 +687,22 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       document.getElementsByClassName("score")[0].textContent =
         Number(document.getElementsByClassName("score")[0].textContent) +
         calculate_score(Number(document.getElementById("timer").textContent));
-      let score = calculate_score(Number(document.getElementById("timer").textContent));
-      if (score <=5){
-        document.getElementById('zv1').style.display = null;
-        document.getElementById('zv2').style.display = 'none';
-        document.getElementById('zv3').style.display = 'none';
-      }
-      else{
-        if (score<=10){
-          document.getElementById('zv1').style.display = null;
-        document.getElementById('zv2').style.display = null;
-        document.getElementById('zv3').style.display = 'none';
-
-        }
-        else{
-          document.getElementById('zv1').style.display = null;
-        document.getElementById('zv2').style.display = null;
-        document.getElementById('zv3').style.display = null;
-
+      let score = calculate_score(
+        Number(document.getElementById("timer").textContent)
+      );
+      if (score <= 5) {
+        document.getElementById("zv1").style.display = null;
+        document.getElementById("zv2").style.display = "none";
+        document.getElementById("zv3").style.display = "none";
+      } else {
+        if (score <= 10) {
+          document.getElementById("zv1").style.display = null;
+          document.getElementById("zv2").style.display = null;
+          document.getElementById("zv3").style.display = "none";
+        } else {
+          document.getElementById("zv1").style.display = null;
+          document.getElementById("zv2").style.display = null;
+          document.getElementById("zv3").style.display = null;
         }
       }
 
@@ -766,7 +733,7 @@ function findColor(useColbaObjOneColor) {
 }
 
 function renderStart() {
-  let arrColbas = JSON.parse(localStorage.getItem('arrColbas'));
+  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
   let conteiner = document.getElementsByClassName("field")[0];
   while (document.getElementsByClassName("colba").length != 0) {
     conteiner.removeChild(document.getElementsByClassName("colba")[0]);
@@ -774,12 +741,12 @@ function renderStart() {
   while (arrColbas.length != 0) {
     arrColbas.splice(0, 1);
   }
-  localStorage.setItem('arrColbas',JSON.stringify(arrColbas));
+  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
 }
 
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
-  let arrColbas = JSON.parse(localStorage.getItem('arrColbas'));
+  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
   //для победы у меня должна быть одна пустая и остальные по одному цвету
   //првоерим, есть ли вообще хотя бы одна пустая
   let fl = false;

@@ -1,12 +1,12 @@
-
 var audio;
+audio = new Audio("sound2.mp3");
 function start() {
-  audio = new Audio("sound2.mp3");
-  audio.play();
   let name = document.getElementById("name").value;
   if (name == "" || name == " ") {
     document.getElementsByClassName("errName")[0].style.display = "block";
   } else {
+    audio.pause();
+    audio.play();
     windowGamePreview = document.getElementsByClassName("windowGamePreview")[0];
     windowStart = document.getElementsByClassName("windowStart")[0];
     windowStart.style.display = "none";
@@ -17,8 +17,8 @@ function start() {
     res = getResultPiramid(name);
     str = "уровень: " + res["level"] + " Очки: " + res["score"];
     document.getElementsByClassName("ResultsPiramid")[0].textContent += str;
-    localStorage.setItem('name', document.getElementById("name").value);
-    localStorage.setItem('level', res["level"]);
+    localStorage.setItem("name", document.getElementById("name").value);
+    localStorage.setItem("level", res["level"]);
   }
 }
 
@@ -49,9 +49,7 @@ function rating() {
     create.textContent = String(dop);
     createParent.appendChild(create);
 
-    document
-      .getElementsByClassName("table")[0]
-      .appendChild(createParent);
+    document.getElementsByClassName("table")[0].appendChild(createParent);
   }
 }
 
@@ -61,7 +59,7 @@ function back() {
 
   document.getElementsByClassName("windowRatingFlask")[0].style.display =
     "none";
-audio.pause();
+  audio.pause();
 }
 
 function settings() {
@@ -70,8 +68,6 @@ function settings() {
   document.getElementsByClassName("windowSettings")[0].style.display = "block";
 }
 function changeVolume() {
-    console.log(document.getElementById("vIn").value);
-  console.log(Number(document.getElementById("vIn").value));
   audio.volume = Number(document.getElementById("vIn").value) / 100;
 }
 
