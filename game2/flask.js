@@ -447,6 +447,67 @@ function renderPreviewLevel(level = 0) {
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
+
+
+
+  
+    create.onmousedown = function(event) {
+
+      let shiftX = event.clientX - create.getBoundingClientRect().left;
+      let shiftY = event.clientY - create.getBoundingClientRect().top;
+    
+      create.style.position = 'absolute';
+      create.style.zIndex = 1000;
+      document.body.append(create);
+    
+      moveAt(event.pageX, event.pageY);
+    
+      // переносит мяч на координаты (pageX, pageY),
+      // дополнительно учитывая изначальный сдвиг относительно указателя мыши
+      function moveAt(pageX, pageY) {
+        create.style.left = pageX - shiftX + 'px';
+        create.style.top = pageY - shiftY + 'px';
+      }
+    
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+      }
+    
+      // передвигаем мяч при событии mousemove
+      document.addEventListener('mousemove', onMouseMove);
+    
+      // отпустить мяч, удалить ненужные обработчики
+      create.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        create.onmouseup = null;
+      };
+    
+    };
+    
+    create.ondragstart = function() {
+      return false;
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     create.setAttribute("numb", j);
     create.id = j;
     let colba = new Colba();

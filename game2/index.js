@@ -70,6 +70,7 @@ function settings() {
   document.getElementsByClassName("windowSettings")[0].style.display = "block";
 }
 function changeVolume() {
+    console.log(document.getElementById("vIn").value);
   console.log(Number(document.getElementById("vIn").value));
   audio.volume = Number(document.getElementById("vIn").value) / 100;
 }
