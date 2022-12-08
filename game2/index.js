@@ -17,7 +17,7 @@ function start() {
     localStorage.setItem("name", document.getElementById("name").value);
     localStorage.setItem("level", res["level"]);
     res = getResultPiramid(name);
-    console.log("Достижение по пирамиде: ", res);
+
     str = "Ваш результат: уровень: " + res["level"] + " Очки: " + res["score"];
     document.getElementsByClassName("ResultsPiramid")[0].textContent = str;
     localStorage.setItem("levelPiramid", res["level"]);
@@ -25,7 +25,7 @@ function start() {
 }
 
 function rating(prop) {
-    console.log(prop);
+
     if (prop == "1"){
         windowRatingFlask = document.getElementsByClassName("windowRatingFlask")[0];
         let elem = document.getElementsByClassName('table')[0];
@@ -59,22 +59,35 @@ function rating(prop) {
         let create;
         let dop;
         let res = JSON.parse(localStorage.getItem("results"));
-        console.log(res);
+
+        let arr = []
+        for (let j=0;j<res.length;j++){
+            let dop = [res[j]['name'],res[j]["results"]['flask']['level'],res[j]["results"]['flask']['score']];
+            arr.push(dop);
+        }
+
+
+        arr.sort((function(index){
+            return function(a, b){
+                return (a[index] === b[index] ? 0 : (a[index] > b[index] ? -1 : 1));
+            };
+        })(2))
+
         for (let i = 0; i < res.length; i++) {
           createParent = document.createElement("tr");
       
           create = document.createElement("th");
-          dop = res[i]["name"];
+          dop = arr[i][0];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
           create = document.createElement("th");
-          dop = res[i]["results"]["flask"]["level"];
+          dop = arr[i][1];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
           create = document.createElement("th");
-          dop = res[i]["results"]["flask"]["score"];
+          dop = arr[i][2];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
@@ -114,22 +127,38 @@ function rating(prop) {
         let create;
         let dop;
         let res = JSON.parse(localStorage.getItem("results"));
-        console.log(res);
+        
+
+
+        let arr = []
+        for (let j=0;j<res.length;j++){
+            let dop = [res[j]['name'],res[j]["results"]['flask']['level'],res[j]["results"]['flask']['score']];
+            arr.push(dop);
+        }
+
+
+        arr.sort((function(index){
+            return function(a, b){
+                return (a[index] === b[index] ? 0 : (a[index] > b[index] ? -1 : 1));
+            };
+        })(2))
+
+
         for (let i = 0; i < res.length; i++) {
           createParent = document.createElement("tr");
       
           create = document.createElement("th");
-          dop = res[i]["name"];
+          dop = arr[i][0];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
           create = document.createElement("th");
-          dop = res[i]["results"]["piramid"]["level"];
+          dop = arr[i][1];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
           create = document.createElement("th");
-          dop = res[i]["results"]["piramid"]["score"];
+          dop = arr[i][2];
           create.textContent = String(dop);
           createParent.appendChild(create);
       
@@ -160,7 +189,7 @@ function changeVolume() {
 }
 
 function getResultFlask(name) {
-  console.log(localStorage.getItem("results"));
+
   let res = JSON.parse(localStorage.getItem("results"));
   if (String(res) == "null") {
     return { level: 0, score: 0 };

@@ -560,18 +560,22 @@ function renderLevel(level) {
     create.addEventListener("dragleave", function (e) {});
 
     create.addEventListener("drop", function (e) {
-      console.log("drop");
+
+      
       let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
       let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
-      console.log(this.id);
-      console.log(arrUse[0])
+
+      
+
+      
       if (this.id!=arrUse[0]){
       useColbaObjOne,
         (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
       updateColb();}
 
-      console.log("drop");
+
+      
     });
 
     create.setAttribute("numb", j);
@@ -584,7 +588,7 @@ function renderLevel(level) {
       colba.pushColor(data[level].arrColb[j][i]);
       create.appendChild(createPart);
     }
-    create.addEventListener("click", function (e) {
+    /*create.addEventListener("click", function (e) {
       let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       e.preventDefault();
 
@@ -610,7 +614,7 @@ function renderLevel(level) {
         }
       }
       localStorage.setItem("arrUse", JSON.stringify(arrUse));
-    });
+    });*/
 
     conteiner.appendChild(create);
   }

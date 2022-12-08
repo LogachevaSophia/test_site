@@ -53,7 +53,8 @@ function globalPiramid() {
     JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
   );
   //var name_user = "";
-  console.log(localStorage.getItem("levelPiramid"));
+
+  
   localStorage.setItem("name_user", "");
   let datapiramid = [];
   datapiramid[1] = {
@@ -110,7 +111,8 @@ function start_piramid() {
         renderStepLevelPiramid();
       localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
     }
-    console.log(localStorage.getItem('levelPiramid'));
+
+    
     document.getElementById("timerPiramid").textContent = 30;
 
     time = parseFloat(document.getElementById("timerPiramid").textContent);
@@ -200,7 +202,8 @@ function renderStepLevelPiramid() {
     arr.push(arrPart);
     arrPart = [];
   }
-  console.log(arr);
+
+  
 
   for (let i = 0; i < 10 * level; i++) {
     let one = Math.floor(Math.random() * arrUse.length);
@@ -459,7 +462,8 @@ function renderLevelPiramid(level) {
 function updateColbPiramid() {
   let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
   let arrColor = JSON.parse(localStorage.getItem("arrColorPiramid"));
-  console.log(arrColbas);
+
+  
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
       document.getElementsByClassName("partColba")[
@@ -600,7 +604,7 @@ function renderStartPiramid() {
 //название изменено
 function chekAllProbPiramid() {
   let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-  console.log(arrColbas);
+
   let colbas = {};
   //для победы у меня должна быть проверка, что колбы с 5 цветами - 1, колба с 4 цветами - 1, колба с 3 цветами - 1, колба с 2 цветами - 1, колба с 1 цветом - 1
   for (let i = 0; i < arrColbas.length; i++) {
