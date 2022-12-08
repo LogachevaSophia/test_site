@@ -67,6 +67,7 @@ function toMain() {
     document.getElementsByClassName("score")[0].textContent;
   document.getElementsByClassName("ResultsFlask")[0].textContent =
     "Ваш результат: " + str;
+  document.getElementsByClassName("score")[0].textContent = "";
 
   //toMainlet = true;
   localStorage.setItem("toMainlet", true);
@@ -132,7 +133,8 @@ function updateres(prop) {
           piramid: { level: prop[2], score: prop[3] },
         },
       };
-      localStorage.setItem("results", JSON.stringify([dop]));
+      arr.push(dop);
+      localStorage.setItem("results", JSON.stringify(arr));
     }
 
     //у нас нет ничего в резах
@@ -157,7 +159,10 @@ function updateres(prop) {
               piramid: dop,
             },
           };
-          localStorage.setItem("results", JSON.stringify([dop2]));
+
+          arr[i] = dop2
+
+          localStorage.setItem("results", JSON.stringify(arr));
           break;
         } else {
           let dop = arr[i]["results"]["flask"];
@@ -171,36 +176,39 @@ function updateres(prop) {
               },
             },
           };
-          localStorage.setItem("results", JSON.stringify([dop2]));
+          arr[i] = dop2;
+          localStorage.setItem("results", JSON.stringify(arr));
           break;
         }
       }
-      if (!fl) {
-        //человечек первый раз играет
-        //arr.push(prop);
-        //localStorage.setItem("results", JSON.stringify(arr));
-        if (prop[1] == "flask") {
-          let dop = {
-            name: prop[0],
-            results: {
-              flask: {
-                level: prop[2],
-                score: prop[3],
-              },
-              piramid: { level: 0, score: 0 },
+    }
+    if (!fl) {
+      //человечек первый раз играет
+      //arr.push(prop);
+      //localStorage.setItem("results", JSON.stringify(arr));
+      if (prop[1] == "flask") {
+        let dop = {
+          name: prop[0],
+          results: {
+            flask: {
+              level: prop[2],
+              score: prop[3],
             },
-          };
-          localStorage.setItem("results", JSON.stringify([dop]));
-        } else {
-          let dop = {
-            name: prop[0],
-            results: {
-              flask: { level: 0, score: 0 },
-              piramid: { level: prop[2], score: prop[3] },
-            },
-          };
-          localStorage.setItem("results", JSON.stringify([dop]));
-        }
+            piramid: { level: 0, score: 0 },
+          },
+        };
+        arr.push(dop);
+        localStorage.setItem("results", JSON.stringify(arr));
+      } else {
+        let dop = {
+          name: prop[0],
+          results: {
+            flask: { level: 0, score: 0 },
+            piramid: { level: prop[2], score: prop[3] },
+          },
+        };
+        arr.push(dop);
+        localStorage.setItem("results", JSON.stringify(arr));
       }
     }
   }
@@ -538,9 +546,9 @@ function renderLevel(level) {
     create.draggable = "true";
 
     create.addEventListener("dragstart", function (e) {
-      let arrUse = JSON.parse(localStorage.getItem('arrUse'));
+      let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       arrUse[0] = this.id;
-      localStorage.setItem('arrUse', JSON.stringify(arrUse));
+      localStorage.setItem("arrUse", JSON.stringify(arrUse));
     });
 
     create.addEventListener("dragend", function (e) {});
@@ -548,22 +556,21 @@ function renderLevel(level) {
     create.addEventListener("dragover", function (e) {
       e.preventDefault();
     });
-    create.addEventListener("dragenter", function (e) {
+    create.addEventListener("dragenter", function (e) {});
 
-    });
-
-    create.addEventListener("dragleave", function (e) {
-
-    });
+    create.addEventListener("dragleave", function (e) {});
 
     create.addEventListener("drop", function (e) {
       console.log("drop");
-      let arrUse = JSON.parse(localStorage.getItem('arrUse'));
+      let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
       let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
+      console.log(this.id);
+      console.log(arrUse[0])
+      if (this.id!=arrUse[0]){
       useColbaObjOne,
         (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
-      updateColb();
+      updateColb();}
 
       console.log("drop");
     });
@@ -664,9 +671,9 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   //updateColb();
 
   //забыла опустить колбу
-  try{
-  document.getElementById(arrUse[0]).style.marginTop = "3%";}
-  catch{}
+  try {
+    document.getElementById(arrUse[0]).style.marginTop = "3%";
+  } catch {}
 
   arrColbas[arrUse[0]] = useColbaObjOne;
   arrColbas[useObj.getAttribute("numb")] = useColbaObjTwo;
@@ -674,7 +681,6 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
   localStorage.setItem("arrUse", JSON.stringify(arrUse));
   updateColb();
-  
 
   //проверка на выигрыш
   if (chekAllProb()) {

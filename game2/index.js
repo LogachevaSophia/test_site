@@ -12,13 +12,14 @@ function start() {
     windowStart.style.display = "none";
     windowGamePreview.style.display = "block";
     let res = getResultFlask(name);
-    let str = "уровень: " + res["level"] + " Очки: " + res["score"];
-    document.getElementsByClassName("ResultsFlask")[0].textContent += str;
-    res = getResultPiramid(name);
-    str = "уровень: " + res["level"] + " Очки: " + res["score"];
-    document.getElementsByClassName("ResultsPiramid")[0].textContent += str;
+    let str = "Ваш результат: уровень: " + res["level"] + " Очки: " + res["score"];
+    document.getElementsByClassName("ResultsFlask")[0].textContent = str;
     localStorage.setItem("name", document.getElementById("name").value);
     localStorage.setItem("level", res["level"]);
+    res = getResultPiramid(name);
+    str = "Ваш результат: уровень: " + res["level"] + " Очки: " + res["score"];
+    document.getElementsByClassName("ResultsPiramid")[0].textContent = str;
+    localStorage.setItem("levelPiramid", res["level"]);
   }
 }
 
@@ -79,9 +80,10 @@ function getResultFlask(name) {
   } else {
     //получили массив объектов
     let fl = false;
-    for (let i = 0; i < res.length; i++) {
+    let i;
+    for (i = 0; i < res.length; i++) {
       if (res[i]["name"] == name) {
-        fl == true;
+        fl = true;
         break;
       }
     }
