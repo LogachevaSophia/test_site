@@ -412,6 +412,37 @@ function renderLevelPiramid(level) {
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
+
+   /* create.draggable = "true";
+
+    create.addEventListener("dragstart", function (e) {
+      let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+      arrUse[0] = this.id;
+      localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+    });
+
+    create.addEventListener("dragend", function (e) {});
+
+    create.addEventListener("dragover", function (e) {
+      e.preventDefault();
+    });
+    create.addEventListener("dragenter", function (e) {});
+
+    create.addEventListener("dragleave", function (e) {});
+
+    create.addEventListener("drop", function (e) {
+      let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+      let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
+      let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
+
+      if (this.id != arrUse[0]) {
+        useColbaObjOne,
+          (useColbaObjTwo = movePiramid(useColbaObjOne, useColbaObjTwo, this));
+        updateColb();
+      }
+    });*/
+
+
     create.setAttribute("numb", j);
     create.id = j;
     let colba = new Colba();
@@ -422,6 +453,7 @@ function renderLevelPiramid(level) {
       colba.pushColor(data[level].arrColb[j][i]);
       create.appendChild(createPart);
     }
+    
     create.addEventListener("click", function (e) {
       let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
       e.preventDefault();
@@ -528,6 +560,7 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
       document.getElementsByClassName(
         "windowPiramidContinue"
       )[0].style.display = "block";
+      document.getElementsByClassName('windowPiramidContinueFailure')[0].display = 'none';
       document.getElementsByClassName("windowPiramid")[0].style.display =
         "none";
 

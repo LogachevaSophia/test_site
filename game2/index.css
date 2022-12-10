@@ -84,6 +84,11 @@ th{
 
 }
 
+button:disabled {color: rgb(255, 0, 0); }
+
+
+
+
 .windowStart {
   position: absolute;
 

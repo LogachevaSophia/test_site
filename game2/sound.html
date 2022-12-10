@@ -3,23 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./sound.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
-    <input type="range" id="fIn" min="40" max="6000" oninput="show()" />
-    <span id="fOut"></span><br />
-    type
-    <input type="range" id="tIn" min="0" max="3" oninput="show()" />
-    <span id="tOut"></span><br />
-    volume
-    <input type="range" id="vIn" min="0" max="100" oninput="show()" />
-    <span id="vOut"></span><br />
-    duration
-    <input type="range" id="dIn" min="1" max="5000" oninput="show()" />
-    <span id="dOut"></span>
-    <br />
-    <button onclick="beep();">Play</button>
+    <button id="mainButton" class="grow_spin" onclick="click()">Can you click me?</button>
   </body>
   <script id="piramidJS" src="sound.js"></script>
 </html>

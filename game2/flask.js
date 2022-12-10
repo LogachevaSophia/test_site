@@ -92,6 +92,9 @@ function toMain() {
   }
 }
 function flask() {
+  let button = document.getElementById('flaskContinue');
+  button.disabled = true;
+  
   document.getElementsByClassName("windowGamePreview")[0].style.display =
     "none";
   document.getElementsByClassName("windowFlaskContinue")[0].style.display =
@@ -159,7 +162,7 @@ function updateres(prop) {
             },
           };
 
-          arr[i] = dop2
+          arr[i] = dop2;
 
           localStorage.setItem("results", JSON.stringify(arr));
           break;
@@ -386,6 +389,7 @@ function start_flask() {
         document.getElementsByClassName(
           "windowFlaskContinueFailure"
         )[0].style.display = "block";
+
         document.getElementsByClassName("windowFlask")[0].style.display =
           "none";
         document.getElementsByClassName("status-bar")[0].style.width = 0 + "%";
@@ -397,10 +401,14 @@ function start_flask() {
           clearInterval(interval);
         }
         if (chekAllProb()) {
+
+          
           setTimeout(function () {
             document.getElementsByClassName(
               "windowFlaskContinue"
             )[0].style.display = "block";
+
+            
             document.getElementsByClassName("windowFlask")[0].style.display =
               "none";
             document.getElementsByClassName("status-bar")[0].style.width =
@@ -560,22 +568,15 @@ function renderLevel(level) {
     create.addEventListener("dragleave", function (e) {});
 
     create.addEventListener("drop", function (e) {
-
-      
       let arrUse = JSON.parse(localStorage.getItem("arrUse"));
       let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
       let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
 
-      
-
-      
-      if (this.id!=arrUse[0]){
-      useColbaObjOne,
-        (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
-      updateColb();}
-
-
-      
+      if (this.id != arrUse[0]) {
+        useColbaObjOne,
+          (useColbaObjTwo = move(useColbaObjOne, useColbaObjTwo, this));
+        updateColb();
+      }
     });
 
     create.setAttribute("numb", j);
@@ -688,10 +689,16 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   //проверка на выигрыш
   if (chekAllProb()) {
     audio.pause();
+
+    let button = document.getElementById('flaskContinue');
     let sound = new Audio("winner.mp3");
     sound.play();
-    setTimeout(function () {audio.play();},4000);
-    
+    setTimeout(function () {
+      audio.play();
+      button.disabled = false;
+    }, 5000);
+  
+
     setTimeout(function () {
       localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
       document.getElementsByClassName("windowFlaskContinue")[0].style.display =
