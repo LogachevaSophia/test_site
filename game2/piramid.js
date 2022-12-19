@@ -1,5 +1,4 @@
-localStorage.removeItem("results");
-localStorage.removeItem("levelPiramid");
+
 
 function toMainfrom() {
   document.getElementsByClassName("windowFlask")[0].style.display = "none";
@@ -82,6 +81,8 @@ function globalPiramid() {
 }
 
 function piramid() {
+  let button = document.getElementById('piramidContinue');
+  button.disabled = true;
   //функция стартовая
   document.getElementsByClassName("windowGamePreview")[0].style.display =
     "none";
@@ -548,10 +549,24 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
 
   //проверка на выигрыш
   if (chekAllProbPiramid()) {
+
+
+
+
+    let button = document.getElementById('piramidContinue');
     audio.pause();
-          let sound = new Audio("winner.mp3");
-          sound.play();
-          setTimeout(function () {audio.play();},4000);
+    let sound = new Audio("winner.mp3");
+    sound.play();
+    setTimeout(function () {
+      audio.play();
+      button.disabled = false;
+    },5000);
+
+
+
+
+
+
     setTimeout(function () {
       localStorage.setItem(
         "levelPiramid",

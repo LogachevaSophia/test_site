@@ -141,7 +141,7 @@ function rating(prop) {
 
         let arr = []
         for (let j=0;j<res.length;j++){
-            let dop = [res[j]['name'],res[j]["results"]['flask']['level'],res[j]["results"]['flask']['score']];
+            let dop = [res[j]['name'],res[j]["results"]['piramid']['level'],res[j]["results"]['piramid']['score']];
             arr.push(dop);
         }
 

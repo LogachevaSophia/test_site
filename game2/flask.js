@@ -107,8 +107,7 @@ function flask() {
   start_flask();
 }
 
-localStorage.removeItem("results");
-localStorage.removeItem("level");
+
 
 function updateres(prop) {
   /*name, flask|piramid, level, score*/
