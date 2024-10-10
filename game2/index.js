@@ -2,6 +2,15 @@ var audio;
 let sound;
 
 audio = new Audio("sound2.mp3");
+
+
+class Game {
+  constructor() {
+    // this.arrColorPiramid = arrColorPiramid;
+
+  }}
+
+  var game = new Game();
 function start() {
   let name = document.getElementById("name").value;
   if (name == "" || name == " ") {

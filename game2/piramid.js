@@ -11,7 +11,8 @@ function toMainfrom() {
 
   document.getElementsByClassName("windowPiramidContinue")[0].style.display =
     "none";
-  arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  // arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  arrColbas = game.arrColbasPiramid;
 
   let str =
     "уровень: " +
@@ -20,7 +21,8 @@ function toMainfrom() {
     document.getElementsByClassName("score")[1].textContent;
   document.getElementsByClassName("ResultsPiramid")[0].textContent =
     "Ваш результат: " + str;
-  localStorage.setItem("toMainletPiramid", true);
+  // localStorage.setItem("toMainletPiramid", true);
+  game.toMainletPiramid = true;
   try {
     let conteiner = document.getElementsByClassName("field")[0];
     while (document.getElementsByClassName("colba").length != 0) {
@@ -41,16 +43,19 @@ function toMainfrom() {
       }
     } catch {}
   }
-  localStorage.setItem("arrColbasPiramid", arrColbas);
+  // localStorage.setItem("arrColbasPiramid", arrColbas);
+  game.arrColbasPiramid = arrColbas;
 }
 
 function globalPiramid() {
-  localStorage.setItem("toMainletPiramid", false);
+  // localStorage.setItem("toMainletPiramid", false);
+  game.toMainletPiramid = false;
 
-  localStorage.setItem(
-    "arrColorPiramid",
-    JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
-  );
+  // localStorage.setItem(
+  //   "arrColorPiramid",
+  //   JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
+  // );
+  game.arrColorPiramid = ["white", "red", "yellow", "green", "brown", "black"];
   //var name_user = "";
 
   localStorage.setItem("name_user", "");
@@ -66,17 +71,24 @@ function globalPiramid() {
       [0, 0, 0, 0, 1],
     ],
   };
-  localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
+  debugger;
+  // localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
+  game.datapiramid = datapiramid
   let arrColbas = [];
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid= arrColbas;
 
   let arrUse = [];
-  localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  game.arrUsePiramid = arrUse;
   if (
-    String(localStorage.getItem("levelPiramid")) == "null" ||
-    String(localStorage.getItem("levelPiramid")) == "0"
+    // String(localStorage.getItem("levelPiramid")) == "null" ||
+    // String(localStorage.getItem("levelPiramid")) == "0"
+    String(!game.levelPiramid )||
+    String(game.levelPiramid)== "0"
   ) {
-    localStorage.setItem("levelPiramid", 1);
+    // localStorage.setItem("levelPiramid", 1);
+    game.levelPiramid = 1;
   }
 }
 
@@ -93,26 +105,34 @@ function piramid() {
 }
 
 function start_piramid() {
-  let datapiramid = JSON.parse(localStorage.getItem("datapiramid"));
+  // let datapiramid = JSON.parse(localStorage.getItem("datapiramid"));
+  let datapiramid = game.datapiramid
   document.getElementsByClassName("status-bar")[1].textContent = " ";
   if (document.getElementById("name").value == "") {
   } else {
     name_user = document.getElementById("name").value;
-    if (localStorage.getItem("levelPiramid") == null) {
-      localStorage.setItem("levelPiramid", 1);
+    // if (localStorage.getItem("levelPiramid") == null) {
+    if (!game.levelPiramid) {
+      // localStorage.setItem("levelPiramid", 1);
+      game.levelPiramid = 1;
     }
     if (document.getElementsByClassName("level")[1].textContent == "Level: ") {
       document.getElementsByClassName("level")[1].textContent += String(
-        Number(localStorage.getItem("levelPiramid")) + 1
+        // Number(localStorage.getItem("levelPiramid")) + 1
+        Number(game.levelPiramid) + 1
       );
     } else {
       document.getElementsByClassName("level")[1].textContent =
-        "Level: " + String(Number(localStorage.getItem("levelPiramid")) + 1);
+        // "Level: " + String(Number(localStorage.getItem("levelPiramid")) + 1);
+        "Level: " + String(Number(game.levelPiramid) + 1);
     }
-    if (String(localStorage.getItem("levelPiramid")) != "0") {
-      datapiramid[localStorage.getItem("levelPiramid")] =
+    // if (String(localStorage.getItem("levelPiramid")) != "0") {
+      if (String(game.levelPiramid) != "0") {
+      // datapiramid[localStorage.getItem("levelPiramid")] =
+      datapiramid[game.levelPiramid] =
         renderStepLevelPiramid();
-      localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
+      // localStorage.setItem("datapiramid", JSON.stringify(datapiramid));
+      game.datapiramid = datapiramid;
     }
 
     document.getElementById("timerPiramid").textContent = 30;
@@ -139,8 +159,10 @@ function start_piramid() {
         document.getElementsByClassName("status-bar")[1].style.width = 0 + "%";
         //заканчиваем игру
       } else {
-        if (localStorage.getItem("toMainletPiramid") == "true") {
-          localStorage.setItem("toMainletPiramid", false);
+        // if (localStorage.getItem("toMainletPiramid") == "true") {
+          if (game.toMainletPiramid){
+          // localStorage.setItem("toMainletPiramid", false);
+          game.toMainletPiramid = false;
           document.getElementById("timerPiramid").textContent = "";
           clearInterval(interval);
         }
@@ -181,14 +203,16 @@ function start_piramid() {
     /* if (String(localStorage.getItem("levelPiramid")) == "0") {
         renderPreviewLevelPiramid();
     } else {*/
-    renderLevelPiramid(localStorage.getItem("levelPiramid"));
+    // renderLevelPiramid(localStorage.getItem("levelPiramid"));
+    renderLevelPiramid(game.levelPiramid);
     //}
   }
 }
 
 //название изменено
 function renderStepLevelPiramid() {
-  let level = localStorage.getItem("levelPiramid");
+  // let level = localStorage.getItem("levelPiramid");
+  let level = game.levelPiramid;
   let arr = [];
   let countColb = 5;
   let countPart = 5;
@@ -305,8 +329,10 @@ function calculate_score_piramid(time, all = 30) {
 
 //название изменено
 function renderPreviewLevelPiramid(level = 0) {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-  let data = JSON.parse(localStorage.getItem("datapiramid"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas = game.arrColbasPiramid
+  // let data = JSON.parse(localStorage.getItem("datapiramid"));
+  let data = game.datapiramid;
   document.getElementsByClassName("username")[1].textContent =
     document.getElementById("name").value;
   document.getElementsByClassName("field")[1].style.display = "flex";
@@ -329,7 +355,8 @@ function renderPreviewLevelPiramid(level = 0) {
       create.style.boxShadow = "0px -1px 25px 25px rgb(4 255 0 / 82%)";
       //мы должны из 1 переложить в 3, чтобы выиграть
       create.addEventListener("click", function (e) {
-        let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+        // let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+        let arrUse = game.arrUsePiramid;
         e.preventDefault();
         if (this.getAttribute("status") == 0) {
           if (String(arrUse) == "null") arrUse = [];
@@ -359,13 +386,15 @@ function renderPreviewLevelPiramid(level = 0) {
             }
           }
         }
-        localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        game.arrUsePiramid = arrUse;
       });
     }
     if (j == 3) {
       create.setAttribute("status", 0);
       create.addEventListener("click", function (e) {
-        let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+        // let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+        let arrUse = game.arrUsePiramid
         e.preventDefault();
         if (document.getElementById("1").getAttribute("status") == 1) {
           if (arrUse.length == 0) {
@@ -389,13 +418,15 @@ function renderPreviewLevelPiramid(level = 0) {
             }
           }
         }
-        localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        game.arrUsePiramid = arrUse;
       });
     }
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid = arrColbas;
   updateColbPiramid();
 }
 
@@ -408,8 +439,10 @@ function renderLevelPiramid(level) {
   document.getElementsByClassName("field")[1].style.display = "flex";
 
   let conteiner = document.getElementsByClassName("field")[1];
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-  let data = JSON.parse(localStorage.getItem("datapiramid"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas = game.arrColbasPiramid;
+  // let data = JSON.parse(localStorage.getItem("datapiramid"));
+  let data = game.datapiramid;
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
@@ -456,19 +489,22 @@ function renderLevelPiramid(level) {
     }
     
     create.addEventListener("click", function (e) {
-      let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+      // let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+      let arrUse = game.arrUsePiramid
       e.preventDefault();
 
       if (arrUse.length == 0) {
         arrUse.push(this.getAttribute("numb"));
-        localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+        game.arrUsePiramid = arrUse;
         this.style.marginTop = 0;
       } else {
         //пользователь дурак и решил в саму себя же перелить
         if (this.getAttribute("numb") == arrUse[0]) {
           document.getElementById(arrUse[0]).style.marginTop = "3%";
           arrUse.splice(0, 1);
-          localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+          // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+          game.arrUsePiramid = arrUse;
         } else {
           let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
           let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
@@ -479,23 +515,28 @@ function renderLevelPiramid(level) {
               this
             ));
           arrUse.splice(0, 1);
-          localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+          // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+          game.arrUsePiramid = arrUse;
           updateColbPiramid();
         }
       }
-      localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+      // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+      game.arrUsePiramid = arrUse;
     });
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid = arrColbas;
   updateColbPiramid();
 }
 
 //название изменено
 function updateColbPiramid() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-  let arrColor = JSON.parse(localStorage.getItem("arrColorPiramid"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas = game.arrColbasPiramid
+  // let arrColor = JSON.parse(localStorage.getItem("arrColorPiramid"));
+  let arrColor = game.arrColorPiramid;
 
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
@@ -508,9 +549,10 @@ function updateColbPiramid() {
 
 //название изменено
 function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-  let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
-
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas  = game.arrColbasPiramid
+  // let arrUse = JSON.parse(localStorage.getItem("arrUsePiramid"));
+  let arrUse = game.arrUsePiramid;
   let useColbaObjOneColor = useColbaObjOne.getColors(); //цвета первой колбы
   let useColbaObjTwoColor = useColbaObjTwo.getColors(); //цвета второй колбы
   let inColorOne = findColorPiramid(useColbaObjOneColor); //индекс первого не белого цвета у первой колбы
@@ -522,8 +564,10 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
     useColbaObjTwo.colors[inColorTwo - 1] = useColbaObjOneColor[inColorOne];
     useColbaObjOne.colors[inColorOne] = 0;
   }
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
-  localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid = arrColbas;
+  // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  game.arrUsePiramid = arrUse;
   //а вдруг там несколько блоков, которые надо перелить?
 
   inColorOne = findColorPiramid(useColbaObjOne.colors);
@@ -544,8 +588,10 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
   arrColbas[arrUse[0]] = useColbaObjOne;
   arrColbas[useObj.getAttribute("numb")] = useColbaObjTwo;
   arrUse.splice(0, 1);
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
-  localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid = arrColbas;
+  // localStorage.setItem("arrUsePiramid", JSON.stringify(arrUse));
+  game.arrUsePiramid = arrUse;
 
   //проверка на выигрыш
   if (chekAllProbPiramid()) {
@@ -568,10 +614,11 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
 
 
     setTimeout(function () {
-      localStorage.setItem(
-        "levelPiramid",
-        Number(localStorage.getItem("levelPiramid")) + 1
-      );
+      // localStorage.setItem(
+      //   "levelPiramid",
+      //   Number(localStorage.getItem("levelPiramid")) + 1
+      // );
+      game.levelPiramid = game.levelPiramid+1;
       document.getElementsByClassName(
         "windowPiramidContinue"
       )[0].style.display = "block";
@@ -608,7 +655,8 @@ function movePiramid(useColbaObjOne, useColbaObjTwo, useObj) {
       updateres([
         document.getElementsByClassName("username")[1].textContent,
         "piramid",
-        localStorage.getItem("levelPiramid"),
+        // localStorage.getItem("levelPiramid"),
+        game.levelPiramid,
         Number(document.getElementsByClassName("score")[1].textContent),
       ]);
     }, 500);
@@ -633,7 +681,8 @@ function findColorPiramid(useColbaObjOneColor) {
 
 //название изменено
 function renderStartPiramid() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas  = game.arrColbasPiramid;
   let conteiner = document.getElementsByClassName("field")[1];
   while (document.getElementsByClassName("colba").length != 0) {
     conteiner.removeChild(document.getElementsByClassName("colba")[0]);
@@ -641,15 +690,16 @@ function renderStartPiramid() {
   while (arrColbas.length != 0) {
     arrColbas.splice(0, 1);
   }
-  localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbasPiramid", JSON.stringify(arrColbas));
+  game.arrColbasPiramid = arrColbas;
 }
 
 //проверка всех колб на то, одного цвета или нет
 
 //название изменено
 function chekAllProbPiramid() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
-
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbasPiramid"));
+  let arrColbas = game.arrColbasPiramid
   let colbas = {};
   //для победы у меня должна быть проверка, что колбы с 5 цветами - 1, колба с 4 цветами - 1, колба с 3 цветами - 1, колба с 2 цветами - 1, колба с 1 цветом - 1
   for (let i = 0; i < arrColbas.length; i++) {

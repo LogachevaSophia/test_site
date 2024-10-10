@@ -23,14 +23,18 @@ Synth.prototype.stop = function (note) {
 };
 
 function global() {
-  localStorage.setItem("toMainlet", false);
+  // localStorage.setItem("toMainlet", false);
+  game.toMainlet = false;
 
-  localStorage.setItem(
-    "arrColor",
-    JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
-  );
+  // localStorage.setItem(
+  //   "arrColor",
+  //   JSON.stringify(["white", "red", "yellow", "green", "brown", "black"])
+  // );
+  game.arrColor = ["white", "red", "yellow", "green", "brown", "black"];
   //var name_user = "";
   localStorage.setItem("name_user", "");
+  game.name_user = "";
+
   let data = [];
   data[0] = {
     countColb: 5,
@@ -43,14 +47,19 @@ function global() {
       [0, 0, 0, 0, 0],
     ],
   };
-  localStorage.setItem("data", JSON.stringify(data));
+  // localStorage.setItem("data", JSON.stringify(data));
+  game.data = data;
   let arrColbas = [];
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas;
 
   let arrUse = [];
-  localStorage.setItem("arrUse", JSON.stringify(arrUse));
-  if (String(localStorage.getItem("level")) == "null") {
-    localStorage.setItem("level", 0);
+  // localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  game.arrUse = arrUse;
+  // if (String(localStorage.getItem("level")) == "null") {
+    if (!game.level) {
+    // localStorage.setItem("level", 0);
+    game.level = 0;
   }
 }
 
@@ -70,7 +79,8 @@ function toMain() {
   document.getElementsByClassName("score")[0].textContent = "";
 
   //toMainlet = true;
-  localStorage.setItem("toMainlet", true);
+  // localStorage.setItem("toMainlet", true);
+  game.toMainlet = true;
   try {
     let conteiner = document.getElementsByClassName("field")[0];
     while (document.getElementsByClassName("colba").length != 0) {
@@ -88,13 +98,13 @@ function toMain() {
       while (arrColbas.length != 0) {
         arrColbas.splice(0, 1);
       }
-    } catch {}
+    } catch { }
   }
 }
 function flask() {
   let button = document.getElementById('flaskContinue');
   button.disabled = true;
-  
+
   document.getElementsByClassName("windowGamePreview")[0].style.display =
     "none";
   document.getElementsByClassName("windowFlaskContinue")[0].style.display =
@@ -112,9 +122,10 @@ function flask() {
 function updateres(prop) {
   /*name, flask|piramid, level, score*/
 
-  let arr = JSON.parse(localStorage.getItem("results"));
+  // let arr = JSON.parse(localStorage.getItem("results"));
+  let arr = game.results
 
-  if (String(arr) == "null") {
+  if (!arr) {
     if (prop[1] == "flask") {
       let dop = {
         name: prop[0],
@@ -126,7 +137,8 @@ function updateres(prop) {
           piramid: { level: 0, score: 0 },
         },
       };
-      localStorage.setItem("results", JSON.stringify([dop]));
+      // localStorage.setItem("results", JSON.stringify([dop]));
+      game.results = [dop];
     } else {
       let dop = {
         name: prop[0],
@@ -135,7 +147,8 @@ function updateres(prop) {
           piramid: { level: prop[2], score: prop[3] },
         },
       };
-      localStorage.setItem("results", JSON.stringify([dop]));
+      // localStorage.setItem("results", JSON.stringify([dop]));
+      game.results = [dop]
     }
 
     //у нас нет ничего в резах
@@ -163,7 +176,8 @@ function updateres(prop) {
 
           arr[i] = dop2;
 
-          localStorage.setItem("results", JSON.stringify(arr));
+          // localStorage.setItem("results", JSON.stringify(arr));
+          game.results = arr;
           break;
         } else {
           let dop = arr[i]["results"]["flask"];
@@ -178,7 +192,8 @@ function updateres(prop) {
             },
           };
           arr[i] = dop2;
-          localStorage.setItem("results", JSON.stringify(arr));
+          // localStorage.setItem("results", JSON.stringify(arr));
+          game.results = arr;
           break;
         }
       }
@@ -199,7 +214,8 @@ function updateres(prop) {
           },
         };
         arr.push(dop);
-        localStorage.setItem("results", JSON.stringify(arr));
+        // localStorage.setItem("results", JSON.stringify(arr));
+        game.results = arr;
       } else {
         let dop = {
           name: prop[0],
@@ -209,7 +225,8 @@ function updateres(prop) {
           },
         };
         arr.push(dop);
-        localStorage.setItem("results", JSON.stringify(arr));
+        // localStorage.setItem("results", JSON.stringify(arr));
+        game.results = arr;
       }
     }
   }
@@ -251,7 +268,8 @@ function updateres(prop) {
 //renderStepLevel();
 
 function renderStepLevel() {
-  let level = localStorage.getItem("level");
+  // let level = localStorage.getItem("level");
+  let level = game.level
   let arr = [];
   let countColb = 5;
   let countPart = 5;
@@ -311,6 +329,7 @@ class Colba {
   }
 }
 
+
 function logout() {
   localStorage.removeItem("username");
   document.getElementsByClassName("username").textContent = "";
@@ -330,43 +349,51 @@ function calculate_score(time, all = 30) {
 }
 /*
 [	{
-		name: lena
-		results:{
-			flask: {level: 5, score: 55}
-			piramid: 10
-			}
-	},
-	{
-		name: lena
-		results:{
-			flask: 5
-			piramid: 10
-			}
-	},
+    name: lena
+    results:{
+      flask: {level: 5, score: 55}
+      piramid: 10
+      }
+  },
+  {
+    name: lena
+    results:{
+      flask: 5
+      piramid: 10
+      }
+  },
 
 ]
  */
 
 function start_flask() {
-  let data = JSON.parse(localStorage.getItem("data"));
+  // let data = JSON.parse(localStorage.getItem("data"));
+  let data = game.data;
   document.getElementsByClassName("status-bar")[0].textContent = " ";
   if (document.getElementById("name").value == "") {
   } else {
     name_user = document.getElementById("name").value;
-    if (localStorage.getItem("level") == null) {
-      localStorage.setItem("level", 0);
+    // if (localStorage.getItem("level") == null) {
+    if (!game.level) {
+      // localStorage.setItem("level", 0);
+      game.level = 0;
     }
     if (document.getElementsByClassName("level")[0].textContent == "Level: ") {
       document.getElementsByClassName("level")[0].textContent += String(
-        Number(localStorage.getItem("level")) + 1
+        // Number(localStorage.getItem("level")) + 1
+        game.level + 1
       );
     } else {
       document.getElementsByClassName("level")[0].textContent =
-        "Level: " + String(Number(localStorage.getItem("level")) + 1);
+        // "Level: " + String(Number(localStorage.getItem("level")) + 1);
+        "Level: " + String(game.level+ 1);
     }
-    if (String(localStorage.getItem("level")) != "0") {
-      data[localStorage.getItem("level")] = renderStepLevel();
-      localStorage.setItem("data", JSON.stringify(data));
+    // if (String(localStorage.getItem("level")) != "0") {
+    if (game.level != 0) {
+      // data[localStorage.getItem("level")] = renderStepLevel();
+      data[game.level] = renderStepLevel();
+      game.data = data;
+      // localStorage.setItem("data", JSON.stringify(data));
     }
     clearInterval();
     document.getElementById("timer").textContent = 30;
@@ -394,20 +421,22 @@ function start_flask() {
         document.getElementsByClassName("status-bar")[0].style.width = 0 + "%";
         //заканчиваем игру
       } else {
-        if (localStorage.getItem("toMainlet") == "true") {
-          localStorage.setItem("toMainlet", false);
+        // if (localStorage.getItem("toMainlet") == "true") {
+          if (game.toMainlet){
+          // localStorage.setItem("toMainlet", false);
+          game.toMainlet = false;
           document.getElementById("timer").textContent = "";
           clearInterval(interval);
         }
         if (chekAllProb()) {
 
-          
+
           setTimeout(function () {
             document.getElementsByClassName(
               "windowFlaskContinue"
             )[0].style.display = "block";
 
-            
+
             document.getElementsByClassName("windowFlask")[0].style.display =
               "none";
             document.getElementsByClassName("status-bar")[0].style.width =
@@ -435,17 +464,21 @@ function start_flask() {
     }, 100);
 
     renderStart();
-    if (String(localStorage.getItem("level")) == "0") {
+    // if (String(localStorage.getItem("level")) == "0") {
+      if (game.level == 0){
       renderPreviewLevel();
     } else {
-      renderLevel(localStorage.getItem("level"));
+      // renderLevel(localStorage.getItem("level"));
+      renderLevel(game.level);
     }
   }
 }
 
 function renderPreviewLevel(level = 0) {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
-  let data = JSON.parse(localStorage.getItem("data"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
+  // let data = JSON.parse(localStorage.getItem("data"));
+  let data = game.data;
   document.getElementsByClassName("username")[0].textContent =
     document.getElementById("name").value;
   document.getElementsByClassName("field")[0].style.display = "flex";
@@ -469,10 +502,11 @@ function renderPreviewLevel(level = 0) {
       create.style.boxShadow = "0px -1px 25px 25px rgb(4 255 0 / 82%)";
       //мы должны из 1 переложить в 3, чтобы выиграть
       create.addEventListener("click", function (e) {
-        let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+        // let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+        let arrUse = game.arrUse
         e.preventDefault();
         if (this.getAttribute("status") == 0) {
-          if (String(arrUse) == "null") arrUse = [];
+          if (!arrUse) arrUse = [];
           if (arrUse.length == 0) {
             //первый раз нажимает
             arrUse.push(this.getAttribute("numb"));
@@ -495,13 +529,15 @@ function renderPreviewLevel(level = 0) {
             }
           }
         }
-        localStorage.setItem("arrUse", JSON.stringify(arrUse));
+        game.arrUse = arrUse;
+        // localStorage.setItem("arrUse", JSON.stringify(arrUse));
       });
     }
     if (j == 3) {
       create.setAttribute("status", 0);
       create.addEventListener("click", function (e) {
-        let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+        // let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+        let arrUse = game.arrUse
         e.preventDefault();
 
         if (document.getElementById("1").getAttribute("status") == 1) {
@@ -525,16 +561,18 @@ function renderPreviewLevel(level = 0) {
             }
           }
         }
-        localStorage.setItem("arrUse", JSON.stringify(arrUse));
+        // localStorage.setItem("arrUse", JSON.stringify(arrUse));
+        game.arrUse = arrUse;
       });
     }
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas;
   updateColb();
 }
-let tyanucolbu;
+
 
 function renderLevel(level) {
   /*localStorage.setItem('username',document.getElementById('name').value);*/
@@ -544,30 +582,35 @@ function renderLevel(level) {
   document.getElementsByClassName("field")[0].style.display = "flex";
 
   let conteiner = document.getElementsByClassName("field")[0];
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
-  let data = JSON.parse(localStorage.getItem("data"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
+  // let data = JSON.parse(localStorage.getItem("data"));
+  let data = game.data;
   for (let j = 0; j < data[level].countColb; j++) {
     let create = document.createElement("div");
     create.className = "colba";
     create.draggable = "true";
 
     create.addEventListener("dragstart", function (e) {
-      let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+      // let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+      let arrUse = game.arrUse
       arrUse[0] = this.id;
-      localStorage.setItem("arrUse", JSON.stringify(arrUse));
+      game.arrUse = arrUse;
+      // localStorage.setItem("arrUse", JSON.stringify(arrUse));
     });
 
-    create.addEventListener("dragend", function (e) {});
+    create.addEventListener("dragend", function (e) { });
 
     create.addEventListener("dragover", function (e) {
       e.preventDefault();
     });
-    create.addEventListener("dragenter", function (e) {});
+    create.addEventListener("dragenter", function (e) { });
 
-    create.addEventListener("dragleave", function (e) {});
+    create.addEventListener("dragleave", function (e) { });
 
     create.addEventListener("drop", function (e) {
-      let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+      // let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+      let arrUse = game.arrUse;
       let useColbaObjOne = arrColbas[arrUse[0]]; // объект колбы, которая была выделена первый раз
       let useColbaObjTwo = arrColbas[this.getAttribute("numb")]; //объект колбы, котоую выделили вторую
 
@@ -618,14 +661,16 @@ function renderLevel(level) {
 
     conteiner.appendChild(create);
   }
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas;
   updateColb();
 }
 
 function updateColb() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
-  let arrColor = JSON.parse(localStorage.getItem("arrColor"));
-
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
+  // let arrColor = JSON.parse(localStorage.getItem("arrColor"));
+  let arrColor = game.arrColor;
   for (let i = 0; i < arrColbas.length; i++) {
     for (let j = 0; j < arrColbas[i].colors.length; j++) {
       document.getElementsByClassName("partColba")[
@@ -636,8 +681,10 @@ function updateColb() {
 }
 
 function move(useColbaObjOne, useColbaObjTwo, useObj) {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
-  let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
+  // let arrUse = JSON.parse(localStorage.getItem("arrUse"));
+  let arrUse = game.arrUse;
 
   let useColbaObjOneColor = useColbaObjOne.getColors(); //цвета первой колбы
   let useColbaObjTwoColor = useColbaObjTwo.getColors(); //цвета второй колбы
@@ -656,8 +703,10 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       useColbaObjOne.colors[inColorOne] = 0;
     }
   }
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
-  localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas
+  // localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  game.arrUse = arrUse
   //а вдруг там несколько блоков, которые надо перелить?
 
   inColorOne = findColor(useColbaObjOne.colors);
@@ -676,13 +725,15 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
   //забыла опустить колбу
   try {
     document.getElementById(arrUse[0]).style.marginTop = "3%";
-  } catch {}
+  } catch { }
 
   arrColbas[arrUse[0]] = useColbaObjOne;
   arrColbas[useObj.getAttribute("numb")] = useColbaObjTwo;
   arrUse.splice(0, 1);
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
-  localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas;
+  // localStorage.setItem("arrUse", JSON.stringify(arrUse));
+  game.arrUse = arrUse;
   updateColb();
 
   //проверка на выигрыш
@@ -696,10 +747,11 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       audio.play();
       button.disabled = false;
     }, 5000);
-  
+
 
     setTimeout(function () {
-      localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
+      // localStorage.setItem("level", Number(localStorage.getItem("level")) + 1);
+      game.level = game.level+1;
       document.getElementsByClassName("windowFlaskContinue")[0].style.display =
         "block";
       document.getElementsByClassName("windowFlask")[0].style.display = "none";
@@ -730,7 +782,8 @@ function move(useColbaObjOne, useColbaObjTwo, useObj) {
       updateres([
         document.getElementsByClassName("username")[0].textContent,
         "flask",
-        localStorage.getItem("level"),
+        // localStorage.getItem("level"),
+        game.level,
         Number(document.getElementsByClassName("score")[0].textContent),
       ]);
     }, 1000);
@@ -753,7 +806,8 @@ function findColor(useColbaObjOneColor) {
 }
 
 function renderStart() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
   let conteiner = document.getElementsByClassName("field")[0];
   while (document.getElementsByClassName("colba").length != 0) {
     conteiner.removeChild(document.getElementsByClassName("colba")[0]);
@@ -761,12 +815,14 @@ function renderStart() {
   while (arrColbas.length != 0) {
     arrColbas.splice(0, 1);
   }
-  localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  // localStorage.setItem("arrColbas", JSON.stringify(arrColbas));
+  game.arrColbas = arrColbas;
 }
 
 //проверка всех колб на то, одного цвета или нет
 function chekAllProb() {
-  let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  // let arrColbas = JSON.parse(localStorage.getItem("arrColbas"));
+  let arrColbas = game.arrColbas;
   //для победы у меня должна быть одна пустая и остальные по одному цвету
   //првоерим, есть ли вообще хотя бы одна пустая
   let fl = false;
